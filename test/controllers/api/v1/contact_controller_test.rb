@@ -36,4 +36,80 @@ class Api::V1::ContactControllerTest < ActionController::TestCase
     end
   end
 
+  describe "Create" do
+    before do
+      post :create, api_token: @token, contact: {name: "Contato Importante", email: "contato_importante@example.org"}
+      @response = JSON.parse(response.body)
+    end
+
+    it 'response should have name' do
+      assert @response['name'] == "Contato Importante"
+    end
+
+    it 'response should have email' do
+      assert @response['email'] == "contato_importante@example.org"
+    end
+  end
+
+  describe "Show" do
+    before do
+      get :show, api_token: @token, id: @contact.id.to_param
+      @response = JSON.parse(response.body)
+    end
+
+    it 'response should have name' do
+      assert @response['name'] == @contact.name
+    end
+
+    it 'response should have email' do
+      assert @response['email'] == @contact.email
+    end
+
+    it 'response should have id' do
+      assert @response['id'] == @contact.id.to_param
+    end
+  end
+
+  describe "Update" do
+    before do
+      put :update, api_token: @token, contact: {name: "Contato Importante", email: "contato_importante@example.org"}, id: @contact.id.to_param
+      @response = JSON.parse(response.body)
+    end
+
+    it 'response should have name' do
+      assert @response['name'] == "Contato Importante"
+    end
+
+    it 'response should have email' do
+      assert @response['email'] == "contato_importante@example.org"
+    end
+
+    it 'response should have id' do
+      assert @response['id'] == @contact.id.to_param
+    end
+  end
+
+  describe "Destroy" do
+    before do
+      delete :destroy, api_token: @token, id: @contact.id.to_param
+      @response = JSON.parse(response.body)
+    end
+
+    it 'response should have name' do
+      assert @response['name'] == @contact.name
+    end
+
+    it 'response should have email' do
+      assert @response['email'] == @contact.email
+    end
+
+    it 'response should have id' do
+      assert @response['id'] == @contact.id.to_param
+    end
+
+    it 'should destroy contact' do
+      assert_raises(ActiveRecord::RecordNotFound){ Contact.find(@contact.id) }
+    end
+  end
+
 end
