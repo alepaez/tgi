@@ -1,7 +1,7 @@
 PATH
   remote: ~/.staging/iugu-ux
   specs:
-    iugu-ux (1.0.2)
+    iugu-ux (1.0.5)
       coffee-script
       compass
       eco
@@ -11,7 +11,7 @@ PATH
 PATH
   remote: ~/.staging/iugusdk
   specs:
-    iugusdk (1.0.0.alpha.21)
+    iugusdk (1.0.0.alpha.23)
       activeuuid
       coffee-script
       compass (>= 0.12.2)
@@ -19,7 +19,7 @@ PATH
       database_cleaner
       default_value_for
       delayed_job_active_record
-      devise (>= 2.1)
+      devise (= 2.1.2)
       eco
       fuubar
       haml
@@ -78,6 +78,10 @@ GEM
     activeuuid (0.4.0)
       activerecord (>= 3.1)
       uuidtools
+    acts_as_status (1.0.2)
+      activemodel (>= 3.0.0)
+      activerecord (>= 3.0.0)
+      activesupport (>= 3.0.0)
     addressable (2.3.5)
     afm (0.2.0)
     ansi (1.4.3)
@@ -110,11 +114,11 @@ GEM
     delayed_job_active_record (0.4.4)
       activerecord (>= 2.1.0, < 4)
       delayed_job (~> 3.0)
-    devise (3.0.0)
+    devise (2.1.2)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
-      railties (>= 3.2.6, < 5)
-      warden (~> 1.2.3)
+      railties (~> 3.1)
+      warden (~> 1.2.1)
     diff-lcs (1.2.4)
     eco (1.0.0)
       coffee-script
@@ -124,8 +128,8 @@ GEM
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
-    faraday (0.8.7)
-      multipart-post (~> 1.1)
+    faraday (0.8.8)
+      multipart-post (~> 1.2.0)
     fssm (0.2.10)
     fuubar (1.1.1)
       rspec (~> 2.0)
@@ -307,6 +311,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts_as_status
   coffee-rails (~> 3.2.1)
   database_cleaner
   iugu-ux!

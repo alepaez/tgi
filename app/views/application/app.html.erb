@@ -1,5 +1,22 @@
-<ul>
-  <li><%= link_to "Configurações", profile_settings_path %></li>
-  <li><%= link_to "Logout", destroy_user_session_path, method: "delete" %></li>
-</ul>
-Nosso App!
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <script>
+      window.api_token = '<%= @current_user.token.token %>';
+    </script>
+    <%= javascript_include_tag 'iugu-ux' %>
+    <%= stylesheet_link_tag 'iugu-ux' %>
+  </head>
+  <body>
+    <script>
+      (function () {
+        $(function(){
+          if(typeof(run_webapp) == "function"){
+            i18n.setDefaultLocale('<%= @current_user.locale %>');
+            return run_webapp(true);
+          }
+        });
+      }).call(this);
+    </script>
+  </body>
+</html>

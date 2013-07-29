@@ -10,6 +10,7 @@ gem 'mysql2'
 #gem 'iugu-ux'
 gem 'iugusdk', :path => "~/.staging/iugusdk"
 gem 'iugu-ux', :path => "~/.staging/iugu-ux"
+gem 'acts_as_status'
 gem 'rabl'
 
 

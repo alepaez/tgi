@@ -10,6 +10,12 @@ TgiCrm::Application.routes.draw do
       get  'contacts/:id' => 'contact#show'
       put  'contacts/:id' => 'contact#update'
       delete  'contacts/:id' => 'contact#destroy'
+
+      get  'products' => 'product#index'
+      post  'products' => 'product#create'
+      get  'products/:id' => 'product#show'
+      put  'products/:id' => 'product#update'
+      delete  'products/:id' => 'product#destroy'
       
     end
   end
