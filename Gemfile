@@ -7,14 +7,8 @@ gem 'rails', '3.2.6'
 
 gem 'mysql2'
 #gem 'iugusdk'
-#gem 'iugu-ux'
 gem 'iugusdk', :path => "~/.staging/iugusdk"
-gem 'iugu-ux', :path => "~/.staging/iugu-ux"
 gem 'acts_as_status'
-gem 'rabl'
-gem 'haml'
-gem 'haml-rails'
-
 gem 'coffee-script'
 
 # Gems used only for assets and not required
@@ -22,11 +16,6 @@ gem 'coffee-script'
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
-
-  gem 'compass'
-  gem 'compass-rails'
-
-  gem 'eco'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer', :platforms => :ruby

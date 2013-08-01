@@ -1,14 +1,4 @@
 PATH
-  remote: ~/.staging/iugu-ux
-  specs:
-    iugu-ux (1.0.5)
-      coffee-script
-      compass
-      eco
-      haml
-      sass (= 3.2.9)
-
-PATH
   remote: ~/.staging/iugusdk
   specs:
     iugusdk (1.0.0.alpha.24)
@@ -148,6 +138,12 @@ GEM
     httpauth (0.2.0)
     i18n (0.6.4)
     iugu-api (0.0.3)
+    iugu-ux (1.0.2)
+      coffee-script
+      compass
+      eco
+      haml
+      sass (= 3.2.9)
     journey (1.0.4)
     jquery-rails (3.0.4)
       railties (>= 3.0, < 5.0)
@@ -316,20 +312,13 @@ DEPENDENCIES
   acts_as_status
   coffee-rails (~> 3.2.1)
   coffee-script
-  compass
-  compass-rails
   database_cleaner
-  eco
-  haml
-  haml-rails
-  iugu-ux!
   iugusdk!
   jquery-rails
   minitest-rails
   minitest-rails-shoulda
   mocha
   mysql2
-  rabl
   rails (= 3.2.6)
   sass-rails (~> 3.2.3)
   simplecov
