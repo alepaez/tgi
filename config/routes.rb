@@ -1,6 +1,7 @@
 TgiCrm::Application.routes.draw do
   root to: 'application#index'
-  get 'app' => 'application#app', as: :app
+
+  get 'app(/*path)' => 'application#app', as: :app
 
   namespace :api do
     namespace :v1 do
