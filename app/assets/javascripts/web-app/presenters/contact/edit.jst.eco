@@ -1,0 +1,7 @@
+<div class="contact big-padding">
+  <div class="responsive_title"><%= @title %></div>
+
+  <form class="form-horizontal form-group">
+    <input class="full-width" name="url" type="text" data-model-value="model.name" placeholder="Jaba, the Hutt"><br/>
+  </form>
+</div>

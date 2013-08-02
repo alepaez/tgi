@@ -1,0 +1,12 @@
+<div class="default-table-view">
+  <div class="dataset-search"></div>
+  <div class="dataset-container">
+    <div class="handle-scrolling table-dataset">
+    </div>
+  </div>
+  <div class="dataset-buttons">
+    <div class="buttons"></div>
+    <div class="paginator"></div>
+    <div class="navigator"></div>
+  </div>
+</div>
