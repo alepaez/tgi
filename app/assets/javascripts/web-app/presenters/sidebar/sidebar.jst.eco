@@ -12,6 +12,10 @@
         <a href="#" class="button tal large full-width" data-action="contacts"><div class="icon-home"></div>Contatos</a>
       </div>
 
+      <div>
+        <a href="#" class="button tal large full-width" data-action="products"><div class="icon-home"></div>Produtos</a>
+      </div>
+
     </div>
 
   </div>

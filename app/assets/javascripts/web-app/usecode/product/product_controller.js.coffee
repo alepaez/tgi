@@ -1,45 +1,46 @@
-class ContactController extends ApplicationController
+class ProductController extends ApplicationController
 
-@ContactController = ContactController
+@ProductController = ProductController
 
-class ContactIndex extends ContactController
+class ProductIndex extends ProductController
   layout: 'default-table-view'
 
   initialize: ->
     super
 
-    @title = 'Contatos'
+    @title = 'Produtos'
 
-    @configureContacts()
+    @configureProducts()
 
     @table = new IuguUI.Table
       collection: @collection
       baseURL: @options.baseURL
       fields:
-        name: 'Nome'
-        email: 'Email'
+        description: 'Descrição'
+        price_cents: 'Preço'
+        status: 'Estado'
       parent: @
-      identifier: 'contact-table'
+      identifier: 'product-table'
     
     @button_toolbar = new IuguUI.Toolbar
       buttons:
-        new_contact:
-          text: 'Novo Contato'
+        new_product:
+          text: 'Novo Produto'
           class: 'ui-add-button'
       baseURL: @options.baseURL
       parent: @
-      identifier: 'contact-button-toolbar'
+      identifier: 'product-button-toolbar'
 
-    @on( 'contact-button-toolbar:new_contact:click', @newContact, @ )
+    @on( 'product-button-toolbar:new_product:click', @newProduct, @ )
 
     @enableLoader()
     @collection.fetch reset: true
   
   context: ->
-    contacts: @collection
+    products: @collection
     
-  newContact: ->
-    Backbone.history.navigate app.routes['contact#new'], { trigger: true }
+  newProduct: ->
+    Backbone.history.navigate app.routes['product#new'], { trigger: true }
     
   render: ->
     super
@@ -48,44 +49,44 @@ class ContactIndex extends ContactController
       '.table-dataset': @table
       '.buttons'      : @button_toolbar
 
-  configureContacts: ->
-    @collection = new app.Contacts
+  configureProducts: ->
+    @collection = new app.Products
     @collection.on 'reset', @load
 
-@ContactIndex = ContactIndex
+@ProductIndex = ProductIndex
 
-class ContactEdit extends ContactController
+class ProductEdit extends ProductController
   layout: 'default-horizontal-split-view'
 
   initialize: ->
     super
-    @model = new window.app.Contact
+    @model = new window.app.Product
 
     @formView = new IuguUI.View
       model: @model
       baseURL: @options.baseURL
       parent: @
-      identifier: 'contact-edit-view'
-      layout: 'contact/edit'
+      identifier: 'product-edit-view'
+      layout: 'product/edit'
       secondaryView: true
 
     @toolbar = new IuguUI.Toolbar
       buttons:
-        save_contact:
+        save_product:
           text: "Salvar"
           class: 'default'
       baseURL: @options.baseURL
       parent: @
-      identifier: 'contact-edit-button-toolbar'
+      identifier: 'product-edit-button-toolbar'
 
-    @on( 'contact-edit-button-toolbar:save_contact:click', @save, @ )
+    @on( 'product-edit-button-toolbar:save_product:click', @save, @ )
 
     @enableLoader()
     @render()
 
     if @options.id
       @title = "Editar Contato"
-      @configure_contact
+      @configure_product
     else
       @title = "Novo Contato"
 
@@ -100,7 +101,7 @@ class ContactEdit extends ContactController
       '.split-view-top'    : @formView
       '.split-view-bottom' : @toolbar
 
-  configure_contact: ->
+  configure_product: ->
     @model.set 'id', @options.id
     @model.on 'fetch', @enableLoader, @
   
@@ -109,4 +110,4 @@ class ContactEdit extends ContactController
     @model.save null,
       context: @
 
-@ContactEdit = ContactEdit
+@ProductEdit = ProductEdit

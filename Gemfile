@@ -8,6 +8,7 @@ gem 'rails', '3.2.14'
 gem 'mysql2'
 #gem 'iugusdk'
 gem 'iugusdk', :path => "~/.staging/iugusdk"
+gem 'iugu-ux', :path => "~/.staging/iugu-ux"
 gem 'acts_as_status'
 gem 'coffee-script'
 gem 'rabl'
