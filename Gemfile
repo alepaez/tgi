@@ -10,6 +10,7 @@ gem 'mysql2'
 gem 'iugusdk', :path => "~/.staging/iugusdk"
 gem 'acts_as_status'
 gem 'coffee-script'
+gem 'rabl'
 
 # Gems used only for assets and not required
 # in production environments by default.

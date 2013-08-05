@@ -1,0 +1,11 @@
+<div class="default-horizontal-split-view" style="height:100%">
+  <div class="view-container" style="<%= if @splitSize then "bottom:" + @splitSize %>">
+    <div class="handle-scrolling">
+      <div class="split-view-top"></div>
+    </div>
+  </div>
+  <div class="toolbar-container" style="<%= if @splitSize then "height:" +  @splitSize %>">
+    <div class="split-view-bottom">
+    </div>
+  </div>
+</div>

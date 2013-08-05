@@ -16,7 +16,7 @@ var enable_debug = <%= Rails.env.production? ? 'false' : 'true' %>;
 var enable_debug_events = false
 
 var enable_ajax_on_subdomain = false;
-var api_base = '//' + window.location.hostname + '/api/v1/';
+var api_base = '//' + window.location.hostname + ':3000/api/v1/';
 //var subdomain_xdr_url = api_base + 'xdreceiver.html';
 
 var app_root = '/app';

@@ -319,6 +319,7 @@ DEPENDENCIES
   minitest-rails-shoulda
   mocha
   mysql2
+  rabl
   rails (= 3.2.14)
   sass-rails (~> 3.2.3)
   simplecov

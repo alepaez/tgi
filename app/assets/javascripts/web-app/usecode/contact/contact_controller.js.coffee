@@ -29,7 +29,6 @@ class ContactIndex extends ContactController
       parent: @
       identifier: 'contact-button-toolbar'
 
-    #@on( 'contact-table:record:click', @openContact, @ )
     @on( 'contact-button-toolbar:new_contact:click', @newContact, @ )
 
     @enableLoader()
@@ -55,15 +54,58 @@ class ContactIndex extends ContactController
 @ContactIndex = ContactIndex
 
 class ContactEdit extends ContactController
-  layout: 'contact/edit'
+  layout: 'default-horizontal-split-view'
 
   initialize: ->
     super
-    @load()
-    @
+    @model = new window.app.Contact
+
+    @formView = new IuguUI.View
+      model: @model
+      baseURL: @options.baseURL
+      parent: @
+      identifier: 'contact-edit-view'
+      layout: 'contact/edit'
+      secondaryView: true
+
+    @toolbar = new IuguUI.Toolbar
+      buttons:
+        save_contact:
+          text: "Salvar"
+          class: 'default'
+      baseURL: @options.baseURL
+      parent: @
+      identifier: 'contact-edit-button-toolbar'
+
+    @on( 'contact-edit-button-toolbar:save_contact:click', @save, @ )
+
+    @enableLoader()
+    @render()
+
+    if @options.id
+      @title = "Editar Contato"
+      @configure_contact
+    else
+      @title = "Novo Contato"
+
+    @load
   
   render: ->
+    debug "coco"
     super
-    @
+
+    @formView.title = @title
+
+    @delegateChild
+      '.split-view-top'    : @formView
+      '.split-view-bottom' : @toolbar
+
+  configure_contact: ->
+    @model.set 'id', @options.id
+    @model.on 'fetch', @enableLoader, @
+  
+  save: ->
+    @model.save null,
+      context: @
 
 @ContactEdit = ContactEdit
