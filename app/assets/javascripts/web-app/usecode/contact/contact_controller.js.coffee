@@ -144,7 +144,7 @@ class ContactShow extends ContactController
 
     @contactView = new IuguUI.View
       context: ->
-        webhook: @contact
+        contact: that.contact
       baseURL: @options.baseURL
       title: @title
       parent: @

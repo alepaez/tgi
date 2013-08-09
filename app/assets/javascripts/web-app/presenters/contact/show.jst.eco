@@ -1,3 +1,10 @@
 <div class="contact">
   <div class="responsive_title"><%= @title %></div>
+
+  <table>
+    <tbody>
+      <tr><th>Nome</th><td><%= @contact.get('name') %></td><tr>
+      <tr><th>Email</th><td><%= @contact.get('email') %></td><tr>
+    </tbody>
+  </table>
 </div>

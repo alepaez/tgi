@@ -1,7 +1,7 @@
 PATH
   remote: ~/.staging/iugu-ux
   specs:
-    iugu-ux (1.0.2)
+    iugu-ux (1.0.5)
       coffee-script
       compass
       eco
