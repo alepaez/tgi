@@ -30,6 +30,7 @@ class ContactIndex extends ContactController
       parent: @
       identifier: 'contact-button-toolbar'
 
+    @on( 'contact-table:record:click', @openContact, @)
     @on( 'contact-button-toolbar:new_contact:click', @newContact, @ )
 
     @enableLoader()
@@ -40,6 +41,10 @@ class ContactIndex extends ContactController
     
   newContact: ->
     Backbone.history.navigate app.routes['contact#new'], { trigger: true }
+
+  openContact: ( context ) ->
+    Backbone.history.navigate app.routes['contact#show'].replace(':id', context.model.get('id')), { trigger: true }
+
     
   render: ->
     super
@@ -56,6 +61,10 @@ class ContactIndex extends ContactController
 
 class ContactEdit extends ContactController
   layout: 'default-horizontal-split-view'
+  
+  events:
+    'click .add-phone': 'addPhone'
+    'click .remove-phone': 'removePhone'
 
   initialize: ->
     super
@@ -109,4 +118,61 @@ class ContactEdit extends ContactController
     @model.save null,
       context: @
 
+  addPhone: (evt) ->
+    evt.preventDefault()
+    @model.addToPhones()
+
+  removePhone: (evt) ->
+    evt.preventDefault()
+    cid = $(evt.target).attr 'cid'
+    phone = @model.get('phones').getByCid cid
+    @model.removeFromPhones phone
+
+
 @ContactEdit = ContactEdit
+
+class ContactShow extends ContactController
+  layout: 'default-horizontal-split-view'
+
+  initialize: ->
+    super
+    that = @
+
+    @title = "Contato #{@options.id.substr(-8)}"
+
+    @configureContact()
+
+    @contactView = new IuguUI.View
+      context: ->
+        webhook: @contact
+      baseURL: @options.baseURL
+      title: @title
+      parent: @
+      identifier: 'contact-show-view'
+      layout: 'contact/show'
+      secondaryView: true
+
+    @toolbar = new IuguUI.Toolbar
+      buttons:
+        back:
+          text: 'voltar'
+      baseURL: @options.baseURL
+      parent: @
+      identifier: 'contact-show-button-toolbar'
+
+    @on( 'contact-show-button-toolbar:back:click', @redirectBack, @ )
+
+    @contact.fetch(complete: -> that.load())
+      
+  configureContact: ->
+    @contact = new window.app.Contact { id: @options.id }
+    @contact.on 'fetch', @enableLoader, @
+
+  render: ->
+    super
+
+    @delegateChild
+      '.split-view-top' : @contactView
+      '.split-view-bottom' : @toolbar
+
+@ContactShow = ContactShow

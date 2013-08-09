@@ -1,0 +1,3 @@
+<div class="contact">
+  <div class="responsive_title"><%= @title %></div>
+</div>

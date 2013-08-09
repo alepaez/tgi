@@ -6,4 +6,28 @@
     <input class="full-width" name="url" type="text" data-model-value="model.email" placeholder="Email"><br/>
   </form>
 
+  <div class="phones">
+    <div data-model-each-phone="model.phones | toArrayRemovingDestroyed" class="phone">
+      <div class="padding">
+        <div class="auto-clear four-fields">
+          <div class="iugu-ui-form-wrapper" style="width:58%">
+            <input class="full-width" name="phones.description" data-model-cid="phone:cid" type="text" data-model-value="phone.description" placeholder="Descrição">
+          </div>
+          <div class="iugu-ui-form-wrapper" style="width:42%">
+            <input class="tac full-width" name="phones.number" data-model-cid="phone:cid" type="text" data-model-value="phone.number" placeholder="Número">
+          </div>
+          <button class="remove-phone full-width danger button ui-trash-button" data-model-cid="phone:cid" style="width:84px">
+          <div class="icon"></div> 
+          <span>
+            Remover
+          </span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div>
+      <button class ="add-phone button full-width">Adicionar Telefone</button>
+    </div>
+  </div>
+
 </div>

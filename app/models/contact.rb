@@ -6,6 +6,11 @@ class Contact < ActiveRecord::Base
 
   validates :name, presence: true
 
-  attr_accessible :name, :email
+  attr_accessible :name, :email, :phones_attributes
 
+  accepts_nested_attributes_for :phones, allow_destroy: true
+
+  def to_json(args = {})
+    super(args.merge(include: 'phones'))
+  end
 end

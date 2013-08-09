@@ -1,4 +1,7 @@
 class Api::V1::ContactController < Api::V1::BaseController
+  before_filter(only: [ :create, :update ]) do
+    nested_attributes_for("contact", ["phones"])
+  end
 
   def create
     render json: @account.contacts.create!(params[:contact])

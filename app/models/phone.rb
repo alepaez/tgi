@@ -3,5 +3,7 @@ class Phone < ActiveRecord::Base
 
   belongs_to :contact
 
+  attr_accessible :description, :number
+
   validates :number, presence: true
 end

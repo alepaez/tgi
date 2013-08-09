@@ -34,4 +34,13 @@ class Api::V1::BaseController < ActionController::Base
     render "api/v1/422", status: :unprocessable_entity
   end
 
+  def nested_attributes_for(model, nested_models)
+    return unless params[model]
+    nested_models.each do |nested_model|
+      next if params[model][nested_model].blank?
+      params[model][nested_model + "_attributes"] = params[model][nested_model] 
+      params[model].delete(nested_model)
+    end
+  end
+
 end

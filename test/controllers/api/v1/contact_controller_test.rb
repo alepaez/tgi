@@ -38,7 +38,7 @@ class Api::V1::ContactControllerTest < ActionController::TestCase
 
   describe "Create" do
     before do
-      post :create, api_token: @token, contact: {name: "Contato Importante", email: "contato_importante@example.org"}
+      post :create, api_token: @token, contact: {name: "Contato Importante", email: "contato_importante@example.org", phones: [{description: "casa", number: "123123123"}]}
       @response = JSON.parse(response.body)
     end
 
@@ -48,6 +48,14 @@ class Api::V1::ContactControllerTest < ActionController::TestCase
 
     it 'response should have email' do
       assert @response['email'] == "contato_importante@example.org"
+    end
+
+    it 'response should have phone description' do
+      assert @response['phones'][0]['description'] == "casa"
+    end
+
+    it 'response should have phone number' do
+      assert @response['phones'][0]['number'] == "123123123"
     end
   end
 
