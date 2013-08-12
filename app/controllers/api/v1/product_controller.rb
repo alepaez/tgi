@@ -1,4 +1,7 @@
 class Api::V1::ProductController < Api::V1::BaseController
+  before_filter(only: [ :create, :update ]) do
+    prepare_params_for(Product)
+  end
   
   def create
     render json: @account.products.create!(params[:product])

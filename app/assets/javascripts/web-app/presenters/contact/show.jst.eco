@@ -7,4 +7,24 @@
       <tr><th>Email</th><td><%= @contact.get('email') %></td><tr>
     </tbody>
   </table>
+
+  <h3>Telefones</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Descrição</th>
+        <th>Número</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% phones = @contact.get('phones').models %>
+    <% for key of _.keys(phones): %>
+      <tr>
+        <td><%= phones[key].get('description') %></td>
+        <td><%= phones[key].get('number') %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
 </div>

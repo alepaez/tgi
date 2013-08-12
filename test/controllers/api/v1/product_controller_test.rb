@@ -59,7 +59,7 @@ class Api::V1::ProductControllerTest < ActionController::TestCase
 
   describe "Create" do
     before do
-      post :create, api_token: @token, product: {description: "descricao2", status: "unavailable", price_cents: 150}
+      post :create, api_token: @token, description: "descricao2", status: "unavailable", price_cents: 150
       @response = JSON.parse(response.body)
     end
 
@@ -78,7 +78,7 @@ class Api::V1::ProductControllerTest < ActionController::TestCase
 
   describe "Update" do
     before do
-      put :update, api_token: @token, id: @product.id, product: {description: "descricao2", status: "unavailable", price_cents: 150}
+      put :update, api_token: @token, id: @product.id, description: "descricao2", status: "unavailable", price_cents: 150
       @response = JSON.parse(response.body)
     end
 

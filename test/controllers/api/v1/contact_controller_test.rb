@@ -38,7 +38,7 @@ class Api::V1::ContactControllerTest < ActionController::TestCase
 
   describe "Create" do
     before do
-      post :create, api_token: @token, contact: {name: "Contato Importante", email: "contato_importante@example.org", phones: [{description: "casa", number: "123123123"}]}
+      post :create, api_token: @token, name: "Contato Importante", email: "contato_importante@example.org", phones: [{description: "casa", number: "123123123"}]
       @response = JSON.parse(response.body)
     end
 
@@ -80,7 +80,7 @@ class Api::V1::ContactControllerTest < ActionController::TestCase
 
   describe "Update" do
     before do
-      put :update, api_token: @token, contact: {name: "Contato Importante", email: "contato_importante@example.org"}, id: @contact.id.to_param
+      put :update, api_token: @token, name: "Contato Importante", email: "contato_importante@example.org", id: @contact.id.to_param
       @response = JSON.parse(response.body)
     end
 

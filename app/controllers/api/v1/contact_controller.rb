@@ -1,6 +1,6 @@
 class Api::V1::ContactController < Api::V1::BaseController
   before_filter(only: [ :create, :update ]) do
-    nested_attributes_for("contact", ["phones"])
+    prepare_params_for(Contact, ["phones"])
   end
 
   def create
