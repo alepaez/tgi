@@ -5,5 +5,5 @@ class ProductTest < ActiveSupport::TestCase
 
   it { must belong_to(:account) }
   it { must validate_presence_of(:description) }
-  it { must validate_presence_of(:status) }
+  it { must validate_presence_of(:price_cents) }
 end

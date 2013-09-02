@@ -29,5 +29,42 @@
       <button class ="add-phone button full-width">Adicionar Telefone</button>
     </div>
   </div>
-
+  <div class="addresses">
+    <div data-model-each-address="model.addresses | toArrayRemovingDestroyed" class="address">
+      <div class="padding">
+        <div class="auto-clear four-fields">
+          <div class="iugu-ui-form-wrapper" style="width:58%">
+            <input class="full-width" name="addresses.description" data-model-cid="address:cid" type="text" data-model-value="address.description" placeholder="Descrição">
+          </div>
+          <div class="iugu-ui-form-wrapper" style="width:42%">
+            <input class="tac full-width" name="addresses.country" data-model-cid="address:cid" type="text" data-model-value="address.country" placeholder="País">
+          </div>
+          <div class="iugu-ui-form-wrapper" style="width:42%">
+            <input class="tac full-width" name="addresses.state" data-model-cid="address:cid" type="text" data-model-value="address.state" placeholder="Estado">
+          </div>
+          <div class="iugu-ui-form-wrapper" style="width:42%">
+            <input class="tac full-width" name="addresses.city" data-model-cid="address:cid" type="text" data-model-value="address.city" placeholder="Cidade">
+          </div>
+          <div class="iugu-ui-form-wrapper" style="width:42%">
+            <input class="tac full-width" name="addresses.address" data-model-cid="address:cid" type="text" data-model-value="address.address" placeholder="Endereço">
+          </div>
+          <div class="iugu-ui-form-wrapper" style="width:42%">
+            <input class="tac full-width" name="addresses.number" data-model-cid="address:cid" type="text" data-model-value="address.number" placeholder="Número">
+          </div>
+          <div class="iugu-ui-form-wrapper" style="width:42%">
+            <input class="tac full-width" name="addresses.complement" data-model-cid="address:cid" type="text" data-model-value="address.complement" placeholder="Complemento">
+          </div>
+          <button class="remove-address full-width danger button ui-trash-button" data-model-cid="address:cid" style="width:84px">
+          <div class="icon"></div> 
+          <span>
+            Remover
+          </span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div>
+      <button class ="add-address button full-width">Adicionar Endereço</button>
+    </div>
+  </div>
 </div>

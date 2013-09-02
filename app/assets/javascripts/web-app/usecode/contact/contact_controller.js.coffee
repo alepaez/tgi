@@ -65,6 +65,8 @@ class ContactEdit extends ContactController
   events:
     'click .add-phone': 'addPhone'
     'click .remove-phone': 'removePhone'
+    'click .add-address': 'addAddress'
+    'click .remove-address': 'removeAddress'
 
   initialize: ->
     super
@@ -127,6 +129,16 @@ class ContactEdit extends ContactController
     cid = $(evt.target).attr 'cid'
     phone = @model.get('phones').getByCid cid
     @model.removeFromPhones phone
+
+  addAddress: (evt) ->
+    evt.preventDefault()
+    @model.addToAddresses()
+
+  removeAddress: (evt) ->
+    evt.preventDefault()
+    cid = $(evt.target).attr 'cid'
+    address = @model.get('addresses').getByCid cid
+    @model.removeFromAddresses address
 
 
 @ContactEdit = ContactEdit

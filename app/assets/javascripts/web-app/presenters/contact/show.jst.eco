@@ -27,4 +27,34 @@
     <% end %>
     </tbody>
   </table>
+
+  <h3>Endereços</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Descrição</th>
+        <th>País</th>
+        <th>Estado</th>
+        <th>Cidade</th>
+        <th>Endereço</th>
+        <th>Número</th>
+        <th>Complemento</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% addresses = @contact.get('addresses').models %>
+    <% for key of _.keys(addresses): %>
+      <tr>
+        <td><%= addresses[key].get('description') %></td>
+        <td><%= addresses[key].get('country') %></td>
+        <td><%= addresses[key].get('state') %></td>
+        <td><%= addresses[key].get('city') %></td>
+        <td><%= addresses[key].get('address') %></td>
+        <td><%= addresses[key].get('number') %></td>
+        <td><%= addresses[key].get('complement') %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
 </div>

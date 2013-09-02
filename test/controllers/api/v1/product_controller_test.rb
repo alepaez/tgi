@@ -6,7 +6,6 @@ class Api::V1::ProductControllerTest < ActionController::TestCase
     prepare_default_env
     @product = @account.products.create({
       description: "descricao",
-      status: "available",
       price_cents: 300
     })
   end
@@ -29,10 +28,6 @@ class Api::V1::ProductControllerTest < ActionController::TestCase
       assert @response[0]['description'] == @product.description
     end
 
-    it 'response should have status' do
-      assert @response[0]['status'] == @product.status
-    end
-
     it 'response should have price_cents' do
       assert @response[0]['price_cents'] == @product.price_cents
     end
@@ -48,10 +43,6 @@ class Api::V1::ProductControllerTest < ActionController::TestCase
       assert @response['description'] == @product.description
     end
 
-    it 'response should have status' do
-      assert @response['status'] == @product.status
-    end
-
     it 'response should have price_cents' do
       assert @response['price_cents'] == @product.price_cents
     end
@@ -59,16 +50,12 @@ class Api::V1::ProductControllerTest < ActionController::TestCase
 
   describe "Create" do
     before do
-      post :create, api_token: @token, description: "descricao2", status: "unavailable", price_cents: 150
+      post :create, api_token: @token, description: "descricao2", price_cents: 150
       @response = JSON.parse(response.body)
     end
 
     it 'response should have description' do
       assert @response['description'] == "descricao2"
-    end
-
-    it 'response should have status' do
-      assert @response['status'] == "unavailable"
     end
 
     it 'response should have price_cents' do
@@ -78,16 +65,12 @@ class Api::V1::ProductControllerTest < ActionController::TestCase
 
   describe "Update" do
     before do
-      put :update, api_token: @token, id: @product.id, description: "descricao2", status: "unavailable", price_cents: 150
+      put :update, api_token: @token, id: @product.id, description: "descricao2", price_cents: 150
       @response = JSON.parse(response.body)
     end
 
     it 'response should have description' do
       assert @response['description'] == "descricao2"
-    end
-
-    it 'response should have status' do
-      assert @response['status'] == "unavailable"
     end
 
     it 'response should have price_cents' do
@@ -103,10 +86,6 @@ class Api::V1::ProductControllerTest < ActionController::TestCase
 
     it 'response should have description' do
       assert @response['description'] == @product.description
-    end
-
-    it 'response should have status' do
-      assert @response['status'] == @product.status
     end
 
     it 'response should have price_cents' do

@@ -1,3 +1,4 @@
+#encoding: utf-8
 require "minitest_helper"
 
 class Api::V1::ContactControllerTest < ActionController::TestCase
@@ -38,7 +39,7 @@ class Api::V1::ContactControllerTest < ActionController::TestCase
 
   describe "Create" do
     before do
-      post :create, api_token: @token, name: "Contato Importante", email: "contato_importante@example.org", phones: [{description: "casa", number: "123123123"}]
+      post :create, api_token: @token, name: "Contato Importante", email: "contato_importante@example.org", phones: [{description: "casa", number: "123123123"}], addresses: [{description: "casa", country: "Brasil", state: "São Paulo", city: "São Paulo", address: "Rua da Consolação", number: "1", complement: "A"}]
       @response = JSON.parse(response.body)
     end
 
@@ -56,6 +57,34 @@ class Api::V1::ContactControllerTest < ActionController::TestCase
 
     it 'response should have phone number' do
       assert @response['phones'][0]['number'] == "123123123"
+    end
+
+    it 'response should have address description' do
+      assert @response['addresses'][0]['description'] == "casa"
+    end
+
+    it 'response should have address country' do
+      assert @response['addresses'][0]['country'] == "Brasil"
+    end
+
+    it 'response should have address state' do
+      assert @response['addresses'][0]['state'] == "São Paulo"
+    end
+
+    it 'response should have address city' do
+      assert @response['addresses'][0]['city'] == "São Paulo"
+    end
+
+    it 'response should have address address' do
+      assert @response['addresses'][0]['address'] == "Rua da Consolação"
+    end
+
+    it 'response should have address number' do
+      assert @response['addresses'][0]['number'] == "1"
+    end
+
+    it 'response should have address complement' do
+      assert @response['addresses'][0]['complement'] == "A"
     end
   end
 
