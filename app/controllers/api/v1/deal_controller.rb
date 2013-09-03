@@ -14,9 +14,13 @@ class Api::V1::DealController < Api::V1::BaseController
   end
 
   def show
+    render json: @contact.deals.find(params[:id])
   end
 
   def update
+    @deal = @contact.deals.find(params[:id])
+    @deal.update_attributes!(params[:deal])
+    render json: @deal
   end
 
   def destroy

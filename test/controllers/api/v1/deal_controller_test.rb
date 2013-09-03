@@ -59,9 +59,42 @@ class Api::V1::DealControllerTest < ActionController::TestCase
   end
 
   describe "Show" do
+    before do
+      get :show, api_token: @token, contact_id: @contact.id.to_param, id: @deal.id.to_param
+      @response = JSON.parse(response.body)
+    end
+
+    it 'response should have id' do
+      assert @response["id"] == @deal.id.to_param
+    end
+
+    it 'response should have items' do
+      assert @response["items"].class == Array
+    end
+
+    it 'response should have items quantities' do
+      assert @response["items"][0]["quantity"] == @deal.items.first.quantity
+    end
   end
 
   describe "Update" do
+    before do
+      put :update, api_token: @token, contact_id: @contact.id.to_param, id: @deal.id.to_param, items: [{quantity: 4, product_id: @product.id.to_param, id: @deal.items.first.id.to_param}]
+      @response = JSON.parse(response.body)
+      puts @response
+    end
+
+    it 'response should have id' do
+      assert @response["id"] == @deal.id.to_param
+    end
+
+    it 'response should have items' do
+      assert @response["items"].class == Array
+    end
+
+    it 'response should have items quantities' do
+      assert @response["items"][0]["quantity"] == 4
+    end
   end
 
   describe "Destroy" do
