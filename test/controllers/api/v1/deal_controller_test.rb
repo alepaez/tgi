@@ -79,9 +79,8 @@ class Api::V1::DealControllerTest < ActionController::TestCase
 
   describe "Update" do
     before do
-      put :update, api_token: @token, contact_id: @contact.id.to_param, id: @deal.id.to_param, items: [{quantity: 4, product_id: @product.id.to_param, id: @deal.items.first.id.to_param}]
+      put :update, api_token: @token, contact_id: @contact.id.to_param, id: @deal.id.to_param, items: [{quantity: 4, id: @deal.items.first.id.to_param}]
       @response = JSON.parse(response.body)
-      puts @response
     end
 
     it 'response should have id' do
@@ -98,5 +97,22 @@ class Api::V1::DealControllerTest < ActionController::TestCase
   end
 
   describe "Destroy" do
+    before do
+      @item = @deal.items.first
+      delete :destroy, api_token: @token, contact_id: @contact.id.to_param, id: @deal.id.to_param
+      @response = JSON.parse(response.body)
+    end
+
+    it 'response should have id' do
+      assert @response["id"] == @deal.id.to_param
+    end
+
+    it 'should destroy deal' do
+      assert_raises(ActiveRecord::RecordNotFound){ Deal.find(@deal.id) }
+    end
+
+    it 'should destroy deal_items' do
+      assert_raises(ActiveRecord::RecordNotFound){ DealItem.find(@item.id) }
+    end
   end
 end

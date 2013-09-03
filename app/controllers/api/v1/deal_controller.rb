@@ -24,6 +24,9 @@ class Api::V1::DealController < Api::V1::BaseController
   end
 
   def destroy
+    @deal = @contact.deals.find(params[:id])
+    @deal.destroy
+    render json: @deal
   end
 
   private

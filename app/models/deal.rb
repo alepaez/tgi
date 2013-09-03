@@ -2,7 +2,7 @@ class Deal < ActiveRecord::Base
   include ActiveUUID::UUID
 
   belongs_to :contact
-  has_many :items, class_name: "DealItem"
+  has_many :items, class_name: "DealItem", dependent: :destroy
 
   accepts_nested_attributes_for :items
 

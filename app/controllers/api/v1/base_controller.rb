@@ -39,6 +39,9 @@ class Api::V1::BaseController < ActionController::Base
     params[model_name] = params.slice(*model.accessible_attributes.to_a)
     nested_models.each do |nested_model|
       next if params[model_name][nested_model].blank?
+      params[model_name][nested_model].each do |nested_instance|
+        nested_instance[:id] = nested_instance[:id].to_uuid unless nested_instance[:id].blank?
+      end
       params[model_name][nested_model + "_attributes"] = params[model_name][nested_model] 
       params[model_name].delete(nested_model)
     end
