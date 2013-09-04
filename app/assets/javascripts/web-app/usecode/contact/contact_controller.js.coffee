@@ -70,6 +70,8 @@ class ContactEdit extends ContactController
 
   initialize: ->
     super
+
+    that = @
     @model = new window.app.Contact
 
     @formView = new IuguUI.View
@@ -82,6 +84,8 @@ class ContactEdit extends ContactController
 
     @toolbar = new IuguUI.Toolbar
       buttons:
+        back:
+          text: "Voltar"
         save_contact:
           text: "Salvar"
           class: 'default'
@@ -89,18 +93,16 @@ class ContactEdit extends ContactController
       parent: @
       identifier: 'contact-edit-button-toolbar'
 
+    @on( 'contact-edit-button-toolbar:back:click', @redirectBack, @ )
     @on( 'contact-edit-button-toolbar:save_contact:click', @save, @ )
-
-    @enableLoader()
-    @render()
 
     if @options.id
       @title = "Editar Contato"
-      @configure_contact
+      @configureContact()
+      @model.fetch(complete: -> that.load())
     else
       @title = "Novo Contato"
-
-    @load
+      @load
   
   render: ->
     super
@@ -111,12 +113,11 @@ class ContactEdit extends ContactController
       '.split-view-top'    : @formView
       '.split-view-bottom' : @toolbar
 
-  configure_contact: ->
+  configureContact: ->
     @model.set 'id', @options.id
     @model.on 'fetch', @enableLoader, @
   
   save: ->
-    window.app.model = @model
     @model.save null,
       context: @
 
@@ -168,17 +169,23 @@ class ContactShow extends ContactController
       buttons:
         back:
           text: 'voltar'
+        edit:
+          text: 'editar'
       baseURL: @options.baseURL
       parent: @
       identifier: 'contact-show-button-toolbar'
 
     @on( 'contact-show-button-toolbar:back:click', @redirectBack, @ )
+    @on( 'contact-show-button-toolbar:edit:click', @editContact, @ )
 
     @contact.fetch(complete: -> that.load())
       
   configureContact: ->
     @contact = new window.app.Contact { id: @options.id }
     @contact.on 'fetch', @enableLoader, @
+
+  editContact: ->
+    Backbone.history.navigate app.routes['contact#edit'].replace(':id', @options.id), { trigger: true }
 
   render: ->
     super

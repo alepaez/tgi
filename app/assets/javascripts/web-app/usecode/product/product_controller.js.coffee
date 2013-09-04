@@ -18,7 +18,6 @@ class ProductIndex extends ProductController
       fields:
         description: 'Descrição'
         price_cents: 'Preço'
-        status: 'Estado'
       parent: @
       identifier: 'product-table'
     
@@ -31,6 +30,7 @@ class ProductIndex extends ProductController
       parent: @
       identifier: 'product-button-toolbar'
 
+    @on( 'product-table:record:click', @openProduct, @ )
     @on( 'product-button-toolbar:new_product:click', @newProduct, @ )
 
     @enableLoader()
@@ -41,6 +41,9 @@ class ProductIndex extends ProductController
     
   newProduct: ->
     Backbone.history.navigate app.routes['product#new'], { trigger: true }
+
+  openProduct: (context) ->
+    Backbone.history.navigate app.routes['product#show'].replace(':id', context.model.get('id')), { trigger: true }
     
   render: ->
     super
@@ -60,6 +63,9 @@ class ProductEdit extends ProductController
 
   initialize: ->
     super
+
+    that = @
+
     @model = new window.app.Product
 
     @formView = new IuguUI.View
@@ -72,6 +78,8 @@ class ProductEdit extends ProductController
 
     @toolbar = new IuguUI.Toolbar
       buttons:
+        back:
+          text: "Voltar"
         save_product:
           text: "Salvar"
           class: 'default'
@@ -79,6 +87,7 @@ class ProductEdit extends ProductController
       parent: @
       identifier: 'product-edit-button-toolbar'
 
+    @on( 'product-edit-button-toolbar:back:click', @redirectBack, @ )
     @on( 'product-edit-button-toolbar:save_product:click', @save, @ )
 
     @enableLoader()
@@ -86,11 +95,11 @@ class ProductEdit extends ProductController
 
     if @options.id
       @title = "Editar Contato"
-      @configure_product
+      @configureProduct()
+      @model.fetch(complete: -> that.load())
     else
       @title = "Novo Contato"
-
-    @load
+      @load
   
   render: ->
     super
@@ -101,7 +110,7 @@ class ProductEdit extends ProductController
       '.split-view-top'    : @formView
       '.split-view-bottom' : @toolbar
 
-  configure_product: ->
+  configureProduct: ->
     @model.set 'id', @options.id
     @model.on 'fetch', @enableLoader, @
   
@@ -111,3 +120,55 @@ class ProductEdit extends ProductController
       context: @
 
 @ProductEdit = ProductEdit
+
+class ProductShow extends ProductController
+  layout: 'default-horizontal-split-view'
+
+  initialize: ->
+    super
+    that = @
+
+    @title = "Produto #{@options.id.substr(-8)}"
+
+    @configureProduct()
+
+    @productView = new IuguUI.View
+      context: ->
+        product: that.product
+      baseURL: @options.baseURL
+      title: @title
+      parent: @
+      identifier: 'product-show-view'
+      layout: 'product/show'
+      secondaryView: true
+
+    @toolbar = new IuguUI.Toolbar
+      buttons:
+        back:
+          text: 'voltar'
+        edit:
+          text: 'editar'
+      baseURL: @options.baseURL
+      parent: @
+      identifier: 'product-show-button-toolbar'
+
+    @on( 'product-show-button-toolbar:back:click', @redirectBack, @ )
+    @on( 'product-show-button-toolbar:edit:click', @editProduct, @ )
+
+    @product.fetch(complete: -> that.load())
+      
+  configureProduct: ->
+    @product = new window.app.Product { id: @options.id }
+    @product.on 'fetch', @enableLoader, @
+
+  editProduct: ->
+    Backbone.history.navigate app.routes['product#edit'].replace(':id', @options.id), { trigger: true }
+
+  render: ->
+    super
+
+    @delegateChild
+      '.split-view-top' : @productView
+      '.split-view-bottom' : @toolbar
+
+@ProductShow = ProductShow
