@@ -6,6 +6,7 @@ class SidebarController extends ApplicationController
   events:
     'click [data-action=contacts]' : 'openContact'
     'click [data-action=products]' : 'openProduct'
+    'click [data-action=deals]' : 'openDeal'
     'click [data-action=dashboard]' : 'openDashboard'
 
   initialize: ->
@@ -20,6 +21,11 @@ class SidebarController extends ApplicationController
     app.rootWindow.closeSidebar()
     evt.preventDefault()
     Backbone.history.navigate app.routes['product#index'], trigger: true
+
+  openDeal: (evt) ->
+    app.rootWindow.closeSidebar()
+    evt.preventDefault()
+    Backbone.history.navigate app.routes['deal#index'], trigger: true
 
   openDashboard: (evt) ->
     app.rootWindow.closeSidebar()

@@ -3,35 +3,41 @@ class Api::V1::DealController < Api::V1::BaseController
     prepare_params_for(Deal, ["items"])
   end
 
-  before_filter :find_contact
+  before_filter :find_scope
 
   def create
-    render json: @contact.deals.create!(params[:deal])
+    render json: @scope.create!(params[:deal])
   end
 
   def index
-    render json: @contact.deals
+    render json: @scope
   end
 
   def show
-    render json: @contact.deals.find(params[:id])
+    render json: @scope.find(params[:id])
   end
 
   def update
-    @deal = @contact.deals.find(params[:id])
+    @deal = @scope.find(params[:id])
+    @deal = Deal.find(@deal.id)
     @deal.update_attributes!(params[:deal])
     render json: @deal
   end
 
   def destroy
-    @deal = @contact.deals.find(params[:id])
+    @deal = @scope.find(params[:id])
+    @deal = Deal.find(@deal.id)
     @deal.destroy
     render json: @deal
   end
 
   private
 
-  def find_contact
-    @contact = @account.contacts.find(params[:contact_id])
+  def find_scope
+    unless params[:contact_id].blank?
+      @scope = @account.contacts.find(params[:contact_id]).deals
+    else
+      @scope = Deal.joins(:contact).where("contacts.account_id = ?", @account.id)
+    end
   end
 end

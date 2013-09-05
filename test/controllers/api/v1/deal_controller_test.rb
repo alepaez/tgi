@@ -44,17 +44,34 @@ class Api::V1::DealControllerTest < ActionController::TestCase
   end
 
   describe "Index" do
-    before do
-      get :index, api_token: @token, contact_id: @contact.id.to_param
-      @response = JSON.parse(response.body)
+    describe "without contact_id" do
+      before do
+        get :index, api_token: @token
+        @response = JSON.parse(response.body)
+      end
+
+      it 'response should be an Array' do
+        assert @response.class == Array
+      end
+
+      it 'response should have id' do
+        assert @response[0]["id"] == @deal.id.to_param
+      end
     end
 
-    it 'response should be an Array' do
-      assert @response.class == Array
-    end
+    describe "with contact_id" do
+      before do
+        get :index, api_token: @token, contact_id: @contact.id.to_param
+        @response = JSON.parse(response.body)
+      end
 
-    it 'response should have id' do
-      assert @response[0]["id"] == @deal.id.to_param
+      it 'response should be an Array' do
+        assert @response.class == Array
+      end
+
+      it 'response should have id' do
+        assert @response[0]["id"] == @deal.id.to_param
+      end
     end
   end
 
