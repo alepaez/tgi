@@ -1,0 +1,9 @@
+<div class="deal big-padding">
+  <div class="responsive_title"><%= @title %></div>
+
+  <form class="form-horizontal form-group">
+    <input class="full-width" name="url" type="text" data-model-value="model.contact_id" style="display: none;"><br/>
+    <a href="#" data-model-text="model.contact_ref" class="full-width select-contact button"></a>
+  </form>
+
+</div>

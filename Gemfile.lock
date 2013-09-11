@@ -11,7 +11,7 @@ PATH
 PATH
   remote: ~/.staging/iugusdk
   specs:
-    iugusdk (1.0.0.alpha.31)
+    iugusdk (1.0.1)
       activeuuid
       coffee-script
       compass (>= 0.12.2)

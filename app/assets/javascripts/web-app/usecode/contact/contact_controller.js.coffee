@@ -20,12 +20,22 @@ class ContactIndex extends ContactController
         email: 'Email'
       parent: @
       identifier: 'contact-table'
+
+    buttons =
+      new_contact:
+        text: 'Novo Contato'
+        class: 'ui-add-button'
+
+    if @options.callbackView
+      buttons_back =
+        back:
+          class: 'ui-back-button'
+
+      _.extend buttons_back, buttons
+      buttons = buttons_back
     
     @button_toolbar = new IuguUI.Toolbar
-      buttons:
-        new_contact:
-          text: 'Novo Contato'
-          class: 'ui-add-button'
+      buttons: buttons
       baseURL: @options.baseURL
       parent: @
       identifier: 'contact-button-toolbar'
@@ -43,7 +53,10 @@ class ContactIndex extends ContactController
     Backbone.history.navigate app.routes['contact#new'], { trigger: true }
 
   openContact: ( context ) ->
-    Backbone.history.navigate app.routes['contact#show'].replace(':id', context.model.get('id')), { trigger: true }
+    if @options.callbackView
+      app.rootWindow.popView context.model
+    else
+      Backbone.history.navigate app.routes['contact#show'].replace(':id', context.model.get('id')), { trigger: true }
 
     
   render: ->
