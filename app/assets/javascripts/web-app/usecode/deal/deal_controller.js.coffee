@@ -93,6 +93,7 @@ class DealEdit extends DealController
       @configureDeal()
       @model.fetch(complete: -> that.load())
     else
+      @model.set 'contact_ref', 'Clique para escolher um Contato'
       @title = "Novo Negócio"
       @load
   
