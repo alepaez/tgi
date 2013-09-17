@@ -115,7 +115,7 @@ class ContactEdit extends ContactController
       @model.fetch(complete: -> that.load())
     else
       @title = "Novo Contato"
-      @load
+      @load()
   
   render: ->
     super

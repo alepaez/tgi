@@ -6,4 +6,29 @@
     <a href="#" data-model-text="model.contact_ref" class="full-width select-contact button"></a>
   </form>
 
+  <div class="items">
+    <div data-model-each-item="model.items | toArrayRemovingDestroyed" class="item">
+      <div class="padding">
+        <div class="auto-clear four-fields">
+          <div class="iugu-ui-form-wrapper" style="width:58%">
+            <input class="full-width" name="items.quantity" data-model-cid="item:cid" type="text" data-model-value="item.quantity" placeholder="Quantidade">
+          </div>
+          <div class="iugu-ui-form-wrapper" style="width:58%" data-model-cid="item:cid">
+            <input class="full-width" name="items.product_id" type="text" data-model-cid="item:cid" data-model-value="item.product_id" style="display: none;"><br/>
+            <a href="#" data-model-cid="item:cid" data-model-text="item.product_ref" class="full-width select-product button"></a>
+          </div>
+          <button class="remove-item full-width danger button ui-trash-button" data-model-cid="item:cid" style="width:84px">
+          <div class="icon" data-model-cid="item:cid"></div> 
+          <span data-model-cid="item:cid">
+            Remover
+          </span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div>
+      <button class ="add-item button full-width">Adicionar Item</button>
+    </div>
+  </div>
+
 </div>

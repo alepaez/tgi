@@ -20,12 +20,22 @@ class ProductIndex extends ProductController
         price_cents: 'Preço'
       parent: @
       identifier: 'product-table'
+
+    buttons =
+      new_product:
+        text: 'Novo Produto'
+        class: 'ui-add-button'
+
+    if @options.callbackView
+      buttons_back =
+        back:
+          class: 'ui-back-button'
+
+      _.extend buttons_back, buttons
+      buttons = buttons_back
     
     @button_toolbar = new IuguUI.Toolbar
-      buttons:
-        new_product:
-          text: 'Novo Produto'
-          class: 'ui-add-button'
+      buttons: buttons
       baseURL: @options.baseURL
       parent: @
       identifier: 'product-button-toolbar'
@@ -43,7 +53,10 @@ class ProductIndex extends ProductController
     Backbone.history.navigate app.routes['product#new'], { trigger: true }
 
   openProduct: (context) ->
-    Backbone.history.navigate app.routes['product#show'].replace(':id', context.model.get('id')), { trigger: true }
+    if @options.callbackView
+      app.rootWindow.popView context.model
+    else
+      Backbone.history.navigate app.routes['product#show'].replace(':id', context.model.get('id')), { trigger: true }
     
   render: ->
     super

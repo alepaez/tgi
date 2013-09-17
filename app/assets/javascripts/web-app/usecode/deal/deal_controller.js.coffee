@@ -55,6 +55,9 @@ class DealEdit extends DealController
 
   events:
     'click .select-contact' : 'selectContact'
+    'click .add-item': 'addItem'
+    'click .remove-item': 'removeItem'
+    'click .select-product' : 'selectProduct'
 
   initialize: ->
     super
@@ -123,14 +126,46 @@ class DealEdit extends DealController
     @on "contact-selection:pop", (contact) ->
       if contact
         that.model.set 'contact_id', contact.get('id')
-        that.model.set 'contact_ref', contact.get('name') || contact.get('name')
+        that.model.set 'contact_ref', contact.get('name') || contact.get('email')
+
+      that.delegateEvents()
+      that.load()
+  
+  addItem: (evt) ->
+    evt.preventDefault()
+    item = @model.addToItems()
+    item.set 'product_ref', 'Clique para escolher um produto'
+
+  removeItem: (evt) ->
+    evt.preventDefault()
+    cid = $(evt.target).attr 'cid'
+    item = @model.get('items').getByCid cid
+    @model.removeFromItems(item)
+
+  selectProduct: (evt) ->
+    evt.preventDefault()
+
+    cid = $(evt.target).attr 'cid'
+    window.app.targetEvt = evt
+
+    that = @
+
+    app.rootWindow.pushView new ProductIndex
+      identifier: "product-selection"
+      callbackView: true
+      secondaryView: true
+
+    @on "product-selection:pop", (product) ->
+      if product
+        item = that.model.get('items').getByCid cid
+        item.set 'product_id', product.get('id')
+        item.set 'product_ref', product.get('description')
 
       that.delegateEvents()
       that.load()
 
   
   save: ->
-    window.app.model = @model
     @model.save null,
       context: @
 
