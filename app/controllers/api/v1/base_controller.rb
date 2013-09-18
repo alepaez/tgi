@@ -38,14 +38,14 @@ class Api::V1::BaseController < ActionController::Base
     model_name = model.to_s.downcase
     params[model_name] = params.slice(*model.accessible_attributes.to_a)
     nested_models.each do |nested_model|
-      next if params[model_name][nested_model].blank?
+      next if params[nested_model].blank?
       nested_accessible_attrs = model.reflections[nested_model.to_sym].klass.accessible_attributes.to_a.push("id")
-      params[model_name][nested_model].each do |nested_instance|
+      params[nested_model].each do |nested_instance|
         nested_instance[:id] = nested_instance[:id].to_uuid unless nested_instance[:id].blank?
         nested_instance.slice!(*nested_accessible_attrs)
       end
-      params[model_name][nested_model + "_attributes"] = params[model_name][nested_model] 
-      params[model_name].delete(nested_model)
+      params[model_name][nested_model + "_attributes"] = params[nested_model] 
+      params.delete(nested_model)
     end
   end
 

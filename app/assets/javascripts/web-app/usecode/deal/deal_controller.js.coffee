@@ -16,7 +16,18 @@ class DealIndex extends DealController
       collection: @collection
       baseURL: @options.baseURL
       fields:
-        id: "ID"
+        contact: "Contato"
+        created_at: "Criado em"
+        updated_at: "Alterado em"
+      recordPresenter:
+        contact: (deal) ->
+          deal.get('contact_ref')
+        created_at: (deal) ->
+          date = new Date(deal.get('created_at').replace(/-/g,"/").replace(/[TZ]/g," "))
+          "#{date.getDate()}/#{date.getMonth()}/#{date.getFullYear()} #{date.getHours()}:#{date.getMinutes()}"
+        updated_at: (deal) ->
+          date = new Date(deal.get('updated_at').replace(/-/g,"/").replace(/[TZ]/g," "))
+          "#{date.getDate()}/#{date.getMonth()}/#{date.getFullYear()} #{date.getHours()}:#{date.getMinutes()}"
       parent: @
       identifier: 'deal-table'
 
@@ -44,6 +55,7 @@ class DealIndex extends DealController
   configureDeals: ->
     @collection = new app.Deals
     @collection.on 'reset', @load
+    window.app.deals = @collection
 
   newDeal: ->
     Backbone.history.navigate app.routes['deal#new'], { trigger: true }

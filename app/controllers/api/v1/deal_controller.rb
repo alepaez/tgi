@@ -10,7 +10,7 @@ class Api::V1::DealController < Api::V1::BaseController
   end
 
   def index
-    render json: @scope
+    render json: @scope.to_json(methods: ['contact_ref'])
   end
 
   def show

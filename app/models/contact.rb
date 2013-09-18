@@ -8,7 +8,7 @@ class Contact < ActiveRecord::Base
 
   validates :name, presence: true
 
-  attr_accessible :name, :email, :phones_attributes, :phones, :addresses, :addresses_attributes
+  attr_accessible :name, :email, :phones_attributes, :addresses_attributes
 
   accepts_nested_attributes_for :phones, :addresses, allow_destroy: true
 
