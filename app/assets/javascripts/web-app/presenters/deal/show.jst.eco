@@ -1,0 +1,29 @@
+<div class="deal">
+  <div class="responsive_title"><%= @title %></div>
+
+  <table>
+    <tbody>
+      <tr><th>Contato</th><td><%= @deal.get('contact_ref') %></td><tr>
+    </tbody>
+  </table>
+
+  <h3>Items</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Quantidade</th>
+        <th>Id do Produto</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% items = @deal.get('items').models %>
+    <% for key of _.keys(items): %>
+      <tr>
+        <td><%= items[key].get('quantity') %></td>
+        <td><%= items[key].get('product_id') %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

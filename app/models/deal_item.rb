@@ -7,5 +7,9 @@ class DealItem < ActiveRecord::Base
   validates :quantity, presence: true
 
   attr_accessible :quantity, :product_id
+
+  def product_ref
+    product.description if product
+  end
   
 end

@@ -39,7 +39,7 @@ class DealIndex extends DealController
       parent: @
       identifier: 'deal-button-toolbar'
 
-    #@on( 'deal-table:record:click', @openProduct, @ )
+    @on( 'deal-table:record:click', @openDeal, @ )
     @on( 'deal-button-toolbar:new_deal:click', @newDeal, @ )
 
     @enableLoader()
@@ -59,6 +59,9 @@ class DealIndex extends DealController
 
   newDeal: ->
     Backbone.history.navigate app.routes['deal#new'], { trigger: true }
+
+  openDeal: (context) ->
+    Backbone.history.navigate app.routes['deal#show'].replace(':id', context.model.get('id')), { trigger: true }
 
 @DealIndex = DealIndex
 
@@ -182,3 +185,55 @@ class DealEdit extends DealController
       context: @
 
 @DealEdit = DealEdit
+
+class DealShow extends DealController
+  layout: 'default-horizontal-split-view'
+
+  initialize: ->
+    super
+    that = @
+
+    @title = "Negócio #{@options.id.substr(-8)}"
+
+    @configureDeal()
+
+    @dealView = new IuguUI.View
+      context: ->
+        deal: that.deal
+      baseURL: @options.baseURL
+      title: @title
+      parent: @
+      identifier: 'deal-show-view'
+      layout: 'deal/show'
+      secondaryView: true
+
+    @toolbar = new IuguUI.Toolbar
+      buttons:
+        back:
+          text: 'voltar'
+        edit:
+          text: 'editar'
+      baseURL: @options.baseURL
+      parent: @
+      identifier: 'deal-show-button-toolbar'
+
+    @on( 'deal-show-button-toolbar:back:click', @redirectBack, @ )
+    @on( 'deal-show-button-toolbar:edit:click', @editDeal, @ )
+
+    @deal.fetch(complete: -> that.load())
+      
+  configureDeal: ->
+    @deal = new window.app.Deal { id: @options.id }
+    @deal.on 'fetch', @enableLoader, @
+
+  editDeal: ->
+    Backbone.history.navigate app.routes['deal#edit'].replace(':id', @options.id), { trigger: true }
+
+  render: ->
+    super
+
+    @delegateChild
+      '.split-view-top' : @dealView
+      '.split-view-bottom' : @toolbar
+
+@DealShow = DealShow

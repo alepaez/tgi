@@ -9,7 +9,12 @@ class Deal < ActiveRecord::Base
   attr_accessible :items_attributes, :product_id
 
   def to_json(args = {})
-    super(args.merge(include: ['items'], methods: ['contact_ref']))
+    super(args.merge(
+      methods: ['contact_ref'],
+      include: { items: {
+        methods: [ 'product_ref' ]
+      }
+    }))
   end
 
   def contact_ref
