@@ -8,7 +8,9 @@ class Api::V1::ContactController < Api::V1::BaseController
   end
 
   def index
-    render json: @account.contacts
+    @result = @account.contacts
+    @result = @result.where("name like ? or email like ?", "%#{params[:query]}%", "%#{params[:query]}%") unless params[:query].blank?
+    render json: @result
   end
 
   def show

@@ -12,6 +12,12 @@ class ContactIndex extends ContactController
 
     @configureContacts()
 
+    @search = new IuguUI.Search
+      collection: @collection
+      baseURL: @options.baseURL
+      parent: @
+      identifier: 'contact-search'
+
     @table = new IuguUI.Table
       collection: @collection
       baseURL: @options.baseURL
@@ -29,6 +35,7 @@ class ContactIndex extends ContactController
     if @options.callbackView
       buttons_back =
         back:
+          text: 'voltar'
           class: 'ui-back-button'
 
       _.extend buttons_back, buttons
@@ -42,6 +49,7 @@ class ContactIndex extends ContactController
 
     @on( 'contact-table:record:click', @openContact, @)
     @on( 'contact-button-toolbar:new_contact:click', @newContact, @ )
+    @on( 'contact-button-toolbar:back:click', @back, @ )
 
     @enableLoader()
     @collection.fetch reset: true
@@ -58,11 +66,14 @@ class ContactIndex extends ContactController
     else
       Backbone.history.navigate app.routes['contact#show'].replace(':id', context.model.get('id')), { trigger: true }
 
-    
+  back: ->
+    app.rootWindow.popView()
+
   render: ->
     super
 
     @delegateChild
+      '.dataset-search': @search
       '.table-dataset': @table
       '.buttons'      : @button_toolbar
 

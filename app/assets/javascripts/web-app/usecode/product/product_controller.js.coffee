@@ -12,6 +12,12 @@ class ProductIndex extends ProductController
 
     @configureProducts()
 
+    @search = new IuguUI.Search
+      collection: @collection
+      baseURL: @options.baseURL
+      parent: @
+      identifier: 'product-search'
+
     @table = new IuguUI.Table
       collection: @collection
       baseURL: @options.baseURL
@@ -29,6 +35,7 @@ class ProductIndex extends ProductController
     if @options.callbackView
       buttons_back =
         back:
+          text: 'voltar'
           class: 'ui-back-button'
 
       _.extend buttons_back, buttons
@@ -42,6 +49,7 @@ class ProductIndex extends ProductController
 
     @on( 'product-table:record:click', @openProduct, @ )
     @on( 'product-button-toolbar:new_product:click', @newProduct, @ )
+    @on( 'product-button-toolbar:back:click', @back, @ )
 
     @enableLoader()
     @collection.fetch reset: true
@@ -57,11 +65,15 @@ class ProductIndex extends ProductController
       app.rootWindow.popView context.model
     else
       Backbone.history.navigate app.routes['product#show'].replace(':id', context.model.get('id')), { trigger: true }
+
+  back: ->
+    app.rootWindow.popView()
     
   render: ->
     super
 
     @delegateChild
+      '.dataset-search': @search
       '.table-dataset': @table
       '.buttons'      : @button_toolbar
 

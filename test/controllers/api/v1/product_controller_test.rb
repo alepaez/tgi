@@ -15,21 +15,59 @@ class Api::V1::ProductControllerTest < ActionController::TestCase
   end
 
   describe "Index" do
-    before do
-      get :index, api_token: @token
-      @response = JSON.parse(response.body)
+    describe "all" do
+      before do
+        get :index, api_token: @token
+        @response = JSON.parse(response.body)
+      end
+
+      it 'response should be an Array' do
+        assert @response.class == Array
+      end
+
+      it 'response should have description' do
+        assert @response[0]['description'] == @product.description
+      end
+
+      it 'response should have price_cents' do
+        assert @response[0]['price_cents'] == @product.price_cents
+      end
     end
 
-    it 'response should be an Array' do
-      assert @response.class == Array
-    end
+    describe "search" do
+      describe "found" do
+        before do
+          get :index, api_token: @token, query: "descricao"
+          @response = JSON.parse(response.body)
+        end
 
-    it 'response should have description' do
-      assert @response[0]['description'] == @product.description
-    end
+        it 'response should be an Array' do
+          assert @response.class == Array
+        end
 
-    it 'response should have price_cents' do
-      assert @response[0]['price_cents'] == @product.price_cents
+        it 'response should have description' do
+          assert @response[0]['description'] == @product.description
+        end
+
+        it 'response should have price_cents' do
+          assert @response[0]['price_cents'] == @product.price_cents
+        end
+      end
+
+      describe "not found" do
+        before do
+          get :index, api_token: @token, query: "nao existo"
+          @response = JSON.parse(response.body)
+        end
+
+        it 'response should be an Array' do
+          assert @response.class == Array
+        end
+
+        it 'response should be empty' do
+          assert @response.empty?
+        end
+      end
     end
   end
 

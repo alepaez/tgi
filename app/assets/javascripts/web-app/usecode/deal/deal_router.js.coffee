@@ -8,9 +8,10 @@ DealRouter = Backbone.Router.extend
 
   routes:
     "deals"  : "index"
-    "deals/:id"  : "show"
+    "deals/"  : "index"
     "deals/new" : "new"
     "deals/:id/edit"  : "edit"
+    "deals/:id"  : "show"
 
   index: ->
     Events.trigger "navigation:go", "deal"

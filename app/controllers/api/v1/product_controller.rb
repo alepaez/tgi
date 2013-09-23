@@ -8,7 +8,9 @@ class Api::V1::ProductController < Api::V1::BaseController
   end
 
   def index
-    render json: @account.products
+    @response = @account.products
+    @response = @response.where("description like ?", "%#{params[:query]}%") unless params[:query].blank?
+    render json: @response
   end
 
   def show

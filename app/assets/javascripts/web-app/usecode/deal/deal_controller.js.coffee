@@ -113,7 +113,7 @@ class DealEdit extends DealController
     else
       @model.set 'contact_ref', 'Clique para escolher um Contato'
       @title = "Novo Negócio"
-      @load
+      @load()
   
   render: ->
     super

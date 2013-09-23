@@ -15,25 +15,67 @@ class Api::V1::ContactControllerTest < ActionController::TestCase
   end
 
   describe "Index" do
-    before do
-      get :index, api_token: @token
-      @response = JSON.parse(response.body)
+    describe "all" do
+      before do
+        get :index, api_token: @token
+        @response = JSON.parse(response.body)
+      end
+
+      it 'response should be an Array' do
+        assert @response.class == Array
+      end
+
+      it 'response should have name' do
+        assert @response[0]['name'] == @contact.name
+      end
+
+      it 'response should have email' do
+        assert @response[0]['email'] == @contact.email
+      end
+
+      it 'response should have id' do
+        assert @response[0]['id'] == @contact.id.to_param
+      end
     end
 
-    it 'response should be an Array' do
-      assert @response.class == Array
-    end
+    describe "search" do
+      describe "found" do
+        before do
+          get :index, api_token: @token, query: "fulano"
+          @response = JSON.parse(response.body)
+        end
 
-    it 'response should have name' do
-      assert @response[0]['name'] == @contact.name
-    end
+        it 'response should be an Array' do
+          assert @response.class == Array
+        end
 
-    it 'response should have email' do
-      assert @response[0]['email'] == @contact.email
-    end
+        it 'response should have name' do
+          assert @response[0]['name'] == @contact.name
+        end
 
-    it 'response should have id' do
-      assert @response[0]['id'] == @contact.id.to_param
+        it 'response should have email' do
+          assert @response[0]['email'] == @contact.email
+        end
+
+        it 'response should have id' do
+          assert @response[0]['id'] == @contact.id.to_param
+        end
+      end
+      
+      describe "not found" do
+        before do
+          get :index, api_token: @token, query: "ciclano"
+          @response = JSON.parse(response.body)
+        end
+
+        it 'response should be an Array' do
+          assert @response.class == Array
+        end
+
+        it 'response should be empty' do
+          assert @response.empty?
+        end
+      end
     end
   end
 
