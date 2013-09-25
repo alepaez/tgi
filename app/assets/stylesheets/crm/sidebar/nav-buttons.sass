@@ -1,0 +1,31 @@
+.desktop
+  .nav
+    .button
+      &.large,&.large:visited
+        font-size: 21px
+        padding: 16px
+        height: 60px
+        line-height: 30px
+        padding-left: $baseElementSpacing
+        &:hover
+          background: #EDEAE3
+          color: #000
+        &.selected,&.active
+          background: #1F59A2
+          color: #FFF
+
+.nav
+  display: block
+  position: relative
+  .button
+    @include border-radius(0px)
+    text-transform: none
+    font-weight: normal
+    background: #FFF
+    color: #333
+    &:hover
+      color: #333
+    &.large,&.large:visited
+      font-size: 25px
+      background: #FFF
+      &.selected

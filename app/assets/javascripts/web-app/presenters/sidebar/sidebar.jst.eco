@@ -9,15 +9,15 @@
       </div>
 
       <div>
-        <a href="#" class="button tal large full-width" data-action="contacts"><div class="icon-home"></div>Contatos</a>
+        <a href="#" class="button tal large full-width" data-action="contact"><div class="icon-home"></div>Contatos</a>
       </div>
 
       <div>
-        <a href="#" class="button tal large full-width" data-action="products"><div class="icon-home"></div>Produtos</a>
+        <a href="#" class="button tal large full-width" data-action="product"><div class="icon-home"></div>Produtos</a>
       </div>
 
       <div>
-        <a href="#" class="button tal large full-width" data-action="deals"><div class="icon-home"></div>Negócios</a>
+        <a href="#" class="button tal large full-width" data-action="deal"><div class="icon-home"></div>Negócios</a>
       </div>
 
     </div>
