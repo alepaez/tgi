@@ -10,7 +10,9 @@ class Api::V1::ContactController < Api::V1::BaseController
   def index
     @result = @account.contacts
     @result = @result.where("name like ? or email like ?", "%#{params[:query]}%", "%#{params[:query]}%") unless params[:query].blank?
-    render json: @result
+    @total = @result.count
+    @result = @result.page((params[:start].to_i/params[:limit].to_i) + 1).per(params[:limit]) unless params[:start].blank? or params[:limit].blank? or params[:limit].to_i == 0
+    render json: { items: @result, totalItems: @total }
   end
 
   def show

@@ -47,6 +47,14 @@ class ContactIndex extends ContactController
       parent: @
       identifier: 'contact-button-toolbar'
 
+    @paginator = new IuguUI.Paginator
+      enableAdicionalButtons: false
+      baseURL: @options.baseURL
+      parent: @
+      identifier: 'contact-paginator'
+
+    IuguUI.Helpers.bindPaginatorToCollection @collection, @paginator, @
+
     @on( 'contact-table:record:click', @openContact, @)
     @on( 'contact-button-toolbar:new_contact:click', @newContact, @ )
     @on( 'contact-button-toolbar:back:click', @back, @ )
@@ -76,10 +84,12 @@ class ContactIndex extends ContactController
       '.dataset-search': @search
       '.table-dataset': @table
       '.buttons'      : @button_toolbar
+      '.paginator'    : @paginator
 
   configureContacts: ->
     @collection = new app.Contacts
     @collection.on 'reset', @load
+    @collection.paginator_ui.perPage = 20
 
 @ContactIndex = ContactIndex
 

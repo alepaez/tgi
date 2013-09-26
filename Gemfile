@@ -12,6 +12,7 @@ gem 'iugu-ux', :path => "~/.staging/iugu-ux"
 gem 'acts_as_status'
 gem 'coffee-script'
 gem 'rabl'
+gem 'kaminari'
 
 # Gems used only for assets and not required
 # in production environments by default.

@@ -320,6 +320,7 @@ DEPENDENCIES
   iugu-ux!
   iugusdk!
   jquery-rails
+  kaminari
   minitest-rails
   minitest-rails-shoulda
   mocha
