@@ -11,7 +11,7 @@ class Api::V1::DealController < Api::V1::BaseController
 
   def index
     @result = @scope
-    #@result = @result.where("description like ?", "%#{params[:query]}%") unless params[:query].blank?
+    @result = @result.joins(:contact).where("contacts.name like ? OR contacts.email like ?", "%#{params[:query]}%", "%#{params[:query]}%") unless params[:query].blank?
     @total = @result.count
     @result = @result.page((params[:start].to_i/params[:limit].to_i) + 1).per(params[:limit]) unless params[:start].blank? or params[:limit].blank? or params[:limit].to_i == 0
     render json: { items: JSON.parse(@result.to_json(methods: ['contact_ref'])), totalItems: @total }

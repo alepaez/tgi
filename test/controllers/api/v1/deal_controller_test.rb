@@ -44,7 +44,7 @@ class Api::V1::DealControllerTest < ActionController::TestCase
   end
 
   describe "Index" do
-    describe "without contact_id" do
+    describe "all" do
       before do
         get :index, api_token: @token
         @response = JSON.parse(response.body)["items"]
@@ -59,18 +59,35 @@ class Api::V1::DealControllerTest < ActionController::TestCase
       end
     end
 
-    describe "with contact_id" do
-      before do
-        get :index, api_token: @token, contact_id: @contact.id.to_param
-        @response = JSON.parse(response.body)["items"]
+    describe "search" do
+      describe "found" do
+        before do
+          get :index, api_token: @token, query: "fulano"
+          @response = JSON.parse(response.body)["items"]
+        end
+
+        it 'response should be an Array' do
+          assert @response.class == Array
+        end
+
+        it 'response should have id' do
+          assert @response[0]["id"] == @deal.id.to_param
+        end
       end
 
-      it 'response should be an Array' do
-        assert @response.class == Array
-      end
+      describe "not found" do
+        before do
+          get :index, api_token: @token, query: "noahd8d1hd10dh18"
+          @response = JSON.parse(response.body)["items"]
+        end
 
-      it 'response should have id' do
-        assert @response[0]["id"] == @deal.id.to_param
+        it 'response should be an Array' do
+          assert @response.class == Array
+        end
+
+        it 'response should be empty' do
+          assert @response.empty?
+        end
       end
     end
   end

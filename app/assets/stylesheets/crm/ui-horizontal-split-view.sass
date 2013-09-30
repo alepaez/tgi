@@ -1,0 +1,104 @@
+@import "iugu-ux/core"
+//@import "platform-sprites"
+
+.default-horizontal-split-view
+  height: 100%
+  .view-container
+    position: absolute
+    top: 0px
+    left: 0px
+    right: 0px
+    bottom: 50px
+    .split-view-top
+      width: 100%
+      height: 100%
+  .toolbar-container  
+    overflow: hidden
+    position: absolute
+    bottom: 0px
+    left: 0px
+    right: 0px
+    height: 50px
+    border-top: 1px solid #CCC
+    .split-view-bottom
+      position: absolute
+      left: 3px
+      top: 3px
+      right: 3px
+      bottom: 3px
+      .button-group .button:last-child
+        position: absolute
+        right: 0px
+        min-width: 120px
+        &.ui-back-button
+          left: 0px
+          min-width: 0px
+
+
+.ui-back-button, .ui-add-button, .ui-trash-button
+  width: 44px
+  height: 44px
+  .icon
+    margin-top: -3px
+    margin-left: -3px
+
+.ui-add-button
+  .icon
+    //@include find-sprite($platform, "ui-icon-plus-button")
+  &:hover
+    .icon
+      //@include find-sprite($platform, "ui-icon-plus-button-white")
+
+.ui-trash-button,.desktop .ui-trash-button
+  background: #EA2636
+  .icon
+    //@include find-sprite($platform, "ui-icon-trash-button-white")
+  &:hover
+    background: #8C1720
+    .icon
+      //@include find-sprite($platform, "ui-icon-trash-button-white")
+
+.ui-back-button
+  .icon
+    //@include find-sprite($platform, "ui-icon-back-button")
+  &:hover
+    .icon
+      //@include find-sprite($platform, "ui-icon-back-button-white")
+
+@include for-hd()
+  .ui-add-button
+    .icon
+      //@include find-sprite($platform-hd, "ui-icon-plus-button", "retina")
+    &:hover
+      .icon
+        //@include find-sprite($platform-hd, "ui-icon-plus-button-white", "retina")
+
+  .ui-trash-button
+    .icon
+      //@include find-sprite($platform-hd, "ui-icon-trash-button-white", "retina")
+    &:hover
+      .icon
+        //@include find-sprite($platform-hd, "ui-icon-trash-button-white", "retina")
+
+  .ui-back-button
+    .icon
+      //@include find-sprite($platform-hd, "ui-icon-back-button", "retina")
+    &:hover
+      .icon
+        //@include find-sprite($platform-hd, "ui-icon-back-button-white", "retina")
+
+
+@include for-large-screens(681px)
+  .default-horizontal-split-view
+    .view-container
+      bottom: 100px
+      
+    .toolbar-container
+      height: 100px
+
+      .split-view-bottom
+        left: 29px
+        top: 29px
+        right: 29px
+        bottom: 29px
+
