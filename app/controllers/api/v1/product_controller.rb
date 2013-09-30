@@ -8,9 +8,11 @@ class Api::V1::ProductController < Api::V1::BaseController
   end
 
   def index
-    @response = @account.products
-    @response = @response.where("description like ?", "%#{params[:query]}%") unless params[:query].blank?
-    render json: @response
+    @result = @account.products
+    @result = @result.where("description like ?", "%#{params[:query]}%") unless params[:query].blank?
+    @total = @result.count
+    @result = @result.page((params[:start].to_i/params[:limit].to_i) + 1).per(params[:limit]) unless params[:start].blank? or params[:limit].blank? or params[:limit].to_i == 0
+    render json: { items: @result, totalItems: @total }
   end
 
   def show

@@ -29,7 +29,7 @@ class ProductIndex extends ProductController
 
     buttons =
       new_product:
-        text: 'Novo Produto'
+        text: 'Novo'
         class: 'ui-add-button'
 
     if @options.callbackView
@@ -46,6 +46,14 @@ class ProductIndex extends ProductController
       baseURL: @options.baseURL
       parent: @
       identifier: 'product-button-toolbar'
+
+    @paginator = new IuguUI.Paginator
+      enableAdicionalButtons: false
+      baseURL: @options.baseURL
+      parent: @
+      identifier: 'product-paginator'
+
+    IuguUI.Helpers.bindPaginatorToCollection @collection, @paginator, @
 
     @on( 'product-table:record:click', @openProduct, @ )
     @on( 'product-button-toolbar:new_product:click', @newProduct, @ )
@@ -76,10 +84,12 @@ class ProductIndex extends ProductController
       '.dataset-search': @search
       '.table-dataset': @table
       '.buttons'      : @button_toolbar
+      '.paginator'    : @paginator
 
   configureProducts: ->
     @collection = new app.Products
     @collection.on 'reset', @load
+    @collection.paginator_ui.perPage = 20
 
 @ProductIndex = ProductIndex
 

@@ -12,6 +12,12 @@ class DealIndex extends DealController
 
     @configureDeals()
 
+    @search = new IuguUI.Search
+      collection: @collection
+      baseURL: @options.baseURL
+      parent: @
+      identifier: 'deal-search'
+
     @table = new IuguUI.Table
       collection: @collection
       baseURL: @options.baseURL
@@ -34,10 +40,19 @@ class DealIndex extends DealController
     @button_toolbar = new IuguUI.Toolbar
       buttons:
         new_deal:
-          text: "Novo Negócio"
+          text: "Novo"
+          class: 'ui-add-button'
       baseURL: @options.baseURL
       parent: @
       identifier: 'deal-button-toolbar'
+
+    @paginator = new IuguUI.Paginator
+      enableAdicionalButtons: false
+      baseURL: @options.baseURL
+      parent: @
+      identifier: 'deal-paginator'
+
+    IuguUI.Helpers.bindPaginatorToCollection @collection, @paginator, @
 
     @on( 'deal-table:record:click', @openDeal, @ )
     @on( 'deal-button-toolbar:new_deal:click', @newDeal, @ )
@@ -49,8 +64,10 @@ class DealIndex extends DealController
     super
 
     @delegateChild
+      '.dataset-search': @search
       '.table-dataset': @table
       '.buttons'      : @button_toolbar
+      '.paginator'    : @paginator
 
   configureDeals: ->
     @collection = new app.Deals

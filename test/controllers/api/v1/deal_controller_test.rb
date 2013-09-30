@@ -47,7 +47,7 @@ class Api::V1::DealControllerTest < ActionController::TestCase
     describe "without contact_id" do
       before do
         get :index, api_token: @token
-        @response = JSON.parse(response.body)
+        @response = JSON.parse(response.body)["items"]
       end
 
       it 'response should be an Array' do
@@ -62,7 +62,7 @@ class Api::V1::DealControllerTest < ActionController::TestCase
     describe "with contact_id" do
       before do
         get :index, api_token: @token, contact_id: @contact.id.to_param
-        @response = JSON.parse(response.body)
+        @response = JSON.parse(response.body)["items"]
       end
 
       it 'response should be an Array' do

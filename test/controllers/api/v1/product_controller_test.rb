@@ -18,7 +18,7 @@ class Api::V1::ProductControllerTest < ActionController::TestCase
     describe "all" do
       before do
         get :index, api_token: @token
-        @response = JSON.parse(response.body)
+        @response = JSON.parse(response.body)["items"]
       end
 
       it 'response should be an Array' do
@@ -38,7 +38,7 @@ class Api::V1::ProductControllerTest < ActionController::TestCase
       describe "found" do
         before do
           get :index, api_token: @token, query: "descricao"
-          @response = JSON.parse(response.body)
+          @response = JSON.parse(response.body)["items"]
         end
 
         it 'response should be an Array' do
@@ -57,7 +57,7 @@ class Api::V1::ProductControllerTest < ActionController::TestCase
       describe "not found" do
         before do
           get :index, api_token: @token, query: "nao existo"
-          @response = JSON.parse(response.body)
+          @response = JSON.parse(response.body)["items"]
         end
 
         it 'response should be an Array' do

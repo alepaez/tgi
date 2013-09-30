@@ -29,7 +29,7 @@ class ContactIndex extends ContactController
 
     buttons =
       new_contact:
-        text: 'Novo Contato'
+        text: 'Novo'
         class: 'ui-add-button'
 
     if @options.callbackView
