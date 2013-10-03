@@ -191,4 +191,37 @@ class Api::V1::ContactControllerTest < ActionController::TestCase
     end
   end
 
+  describe "strategic_information" do
+    before do
+      @product = @account.products.create(description: "product", price_cents: 100)
+      10.times do |i|
+        deal = @contact.deals.create(items_attributes: [{quantity: 1, product_id: @product.id.to_param}])
+        deal.update_attribute(:created_at, Date.today - i.days)
+      end
+      get :strategic_information, api_token: @token, id: @contact.id.to_param
+      @response = JSON.parse(response.body)
+    end
+
+    describe "recent deals" do
+      before do
+        @response = @response["recent_deals"]
+      end
+
+      it 'should be an array' do
+        assert @response.class == Array
+        
+      end
+
+      it 'bring the last 5 deals' do
+        assert @response.count == 5
+      end
+
+      it 'should be most recent first' do
+        assert @response[0]["created_at"].to_date == Date.today
+        assert @response[1]["created_at"].to_date == Date.today - 1.days
+        assert @response[2]["created_at"].to_date == Date.today - 2.days
+      end
+    end
+  end
+
 end

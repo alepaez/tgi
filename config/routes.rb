@@ -11,6 +11,7 @@ TgiCrm::Application.routes.draw do
       get  'contacts/:id' => 'contact#show'
       put  'contacts/:id' => 'contact#update'
       delete  'contacts/:id' => 'contact#destroy'
+      get  'contacts/:id/strategic_information' => 'contact#strategic_information'
 
       get  'products' => 'product#index'
       post  'products' => 'product#create'

@@ -19,6 +19,13 @@ class Api::V1::ContactController < Api::V1::BaseController
     render json: @account.contacts.find(params[:id])
   end
 
+  def strategic_information
+    @contact = @account.contacts.find(params[:id])
+    render json: {
+      recent_deals: @contact.deals.order("created_at DESC").limit(5)
+    }
+  end
+
   def update
     @contact = @account.contacts.find(params[:id])
     @contact.update_attributes!(params[:contact])
