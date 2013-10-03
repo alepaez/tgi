@@ -1,4 +1,4 @@
-<div class="deal">
+<div class="deal big-padding">
   <div class="responsive_title"><%= @title %></div>
 
   <table>
@@ -13,7 +13,7 @@
     <thead>
       <tr>
         <th>Quantidade</th>
-        <th>Id do Produto</th>
+        <th>Produto</th>
       </tr>
     </thead>
     <tbody>
@@ -21,7 +21,7 @@
     <% for key of _.keys(items): %>
       <tr>
         <td><%= items[key].get('quantity') %></td>
-        <td><%= items[key].get('product_id') %></td>
+        <td><%= items[key].get('product_ref') %></td>
       </tr>
     <% end %>
     </tbody>
