@@ -11,6 +11,7 @@ class ContactIndex extends ContactController
     @title = 'Contatos'
 
     @configureContacts()
+    @getStrategicInfo()
 
     @search = new IuguUI.Search
       collection: @collection
@@ -73,6 +74,17 @@ class ContactIndex extends ContactController
       app.rootWindow.popView context.model
     else
       Backbone.history.navigate app.routes['contact#show'].replace(':id', context.model.get('id')), { trigger: true }
+
+  getStrategicInfo: ->
+    @configureAjax()
+    that = @
+    app.ajax "#{api_base}subscriptions/#{@id}/#{type}",
+      type: 'POST'
+      success: (data) ->
+        that.set that.parse data
+      complete: ->
+        cb() if cb
+
 
   back: ->
     app.rootWindow.popView()
