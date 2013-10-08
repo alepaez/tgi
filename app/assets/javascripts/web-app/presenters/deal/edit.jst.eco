@@ -4,6 +4,11 @@
   <form class="form-horizontal form-group">
     <input class="full-width" name="url" type="text" data-model-value="model.contact_id" style="display: none;"><br/>
     <a href="#" data-model-text="model.contact_ref" class="full-width select-contact button"></a>
+    <div class="status-radio">
+      <input data-model-checked="model.status" type="radio" name="status" value="open">Em Aberto</input>
+      <input data-model-checked="model.status" type="radio" name="status" value="won">Ganho</input>
+      <input data-model-checked="model.status" type="radio" name="status" value="lost">Perdido</input>
+    </div>
   </form>
 
   <div class="items">

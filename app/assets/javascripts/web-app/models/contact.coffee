@@ -34,6 +34,17 @@ class window.app.Contact extends window.app.BaseResource
   initialize: ->
     super
 
+  getStrategicInfo: (cb) ->
+    @configureAjax()
+    that = @
+    app.ajax "#{api_base}contacts/#{@id}/strategic_information",
+      type: 'GET'
+      success: (data) ->
+        that.set that.parse data
+      complete: ->
+        cb() if cb
+
+
 class window.app.Contacts extends window.app.BaseResources
   model: window.app.Contact
 

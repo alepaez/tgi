@@ -1,5 +1,10 @@
 {
   'misc': {
     'search': "Busca"
+  },
+  'deal_status': {
+    'open': "Em Aberto",
+    'won': "Ganho",
+    'lost': "Perdido"
   }
 }

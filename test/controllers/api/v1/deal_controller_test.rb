@@ -15,6 +15,7 @@ class Api::V1::DealControllerTest < ActionController::TestCase
     })
 
     @deal = @contact.deals.create({
+      status: "open",
       items_attributes: [
         {
           quantity: 1,
@@ -30,7 +31,7 @@ class Api::V1::DealControllerTest < ActionController::TestCase
 
   describe "Create" do
     before do
-      post :create, api_token: @token, contact_id: @contact.id.to_param, items: [{quantity: 2, product_id: @product.id.to_param}]
+      post :create, api_token: @token, contact_id: @contact.id.to_param, items: [{quantity: 2, product_id: @product.id.to_param}], status: "open"
       @response = JSON.parse(response.body)
     end
 

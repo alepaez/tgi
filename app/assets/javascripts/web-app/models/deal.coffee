@@ -10,6 +10,9 @@ class window.app.Deal extends window.app.BaseResource
 
   collection: window.app.Deals
 
+  defaults:
+    "status": "open"
+
   relations: [
     {
       type: Backbone.Many

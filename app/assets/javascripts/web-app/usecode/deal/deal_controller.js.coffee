@@ -30,10 +30,10 @@ class DealIndex extends DealController
           deal.get('contact_ref')
         created_at: (deal) ->
           date = new Date(deal.get('created_at').replace(/-/g,"/").replace(/[TZ]/g," "))
-          "#{date.getDate()}/#{date.getMonth()}/#{date.getFullYear()} #{date.getHours()}:#{date.getMinutes()}"
+          "#{date.getDate()}/#{date.getMonth()}/#{date.getFullYear()} #{date.toLocaleTimeString()}"
         updated_at: (deal) ->
           date = new Date(deal.get('updated_at').replace(/-/g,"/").replace(/[TZ]/g," "))
-          "#{date.getDate()}/#{date.getMonth()}/#{date.getFullYear()} #{date.getHours()}:#{date.getMinutes()}"
+          "#{date.getDate()}/#{date.getMonth()}/#{date.getFullYear()} #{date.toLocaleTimeString()}"
       parent: @
       identifier: 'deal-table'
 

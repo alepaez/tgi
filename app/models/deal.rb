@@ -6,7 +6,9 @@ class Deal < ActiveRecord::Base
 
   accepts_nested_attributes_for :items
 
-  attr_accessible :items_attributes, :product_id
+  attr_accessible :items_attributes, :product_id, :status
+
+  acts_as_status :status, %w[open lost won]
 
   def to_json(args = {})
     super(args.merge(
