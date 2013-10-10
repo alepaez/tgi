@@ -46,6 +46,18 @@ class DealIndex extends DealController
       parent: @
       identifier: 'deal-button-toolbar'
 
+    @filter_status = new IuguUI.SearchFilter
+      collection: @collection
+      multiSelection: false
+      name: "status"
+      filterNames: [ "open", "won", "lost" ]
+      fixedFilters: ["open", "won", "lost"]
+      translateTerms: true
+      translationPrefix: 'deal_status'
+      baseURL: @options.baseURL
+      parent: @
+      identifier: 'deals-status-filter'
+
     @paginator = new IuguUI.Paginator
       enableAdicionalButtons: false
       baseURL: @options.baseURL
@@ -56,6 +68,7 @@ class DealIndex extends DealController
 
     @on( 'deal-table:record:click', @openDeal, @ )
     @on( 'deal-button-toolbar:new_deal:click', @newDeal, @ )
+    @on( 'deals-status-filter:facet:click', @toggleSiderbar, @ )
 
     @enableLoader()
     @collection.fetch reset: true
@@ -69,6 +82,9 @@ class DealIndex extends DealController
       '.buttons'      : @button_toolbar
       '.paginator'    : @paginator
 
+    window.Events.trigger "fillSlots",
+      "[data-group=deal-filter]": @filter_status.render()
+
   configureDeals: ->
     @collection = new app.Deals
     @collection.on 'reset', @load
@@ -79,6 +95,14 @@ class DealIndex extends DealController
 
   openDeal: (context) ->
     Backbone.history.navigate app.routes['deal#show'].replace(':id', context.model.get('id')), { trigger: true }
+
+  toggleSidebar: (context) ->
+    app.rootWindow.closeSidebar()
+
+  close: ->
+    window.Events.trigger "resetSlots", [ "[data-group=deal-filter]" ]
+    @collection.removeFiltersEndingWith "_filter"
+    @filter_status.close()
 
 @DealIndex = DealIndex
 

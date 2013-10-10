@@ -91,6 +91,47 @@ class Api::V1::DealControllerTest < ActionController::TestCase
         end
       end
     end
+
+    describe "filter" do
+      before do
+        2.times do
+          @deal = @contact.deals.create({
+            status: "lost",
+            items_attributes: [{ quantity: 1, product_id: @product.id.to_param }]
+          })
+        end
+
+        3.times do
+          @deal = @contact.deals.create({
+            status: "won",
+            items_attributes: [{ quantity: 1, product_id: @product.id.to_param }]
+          })
+        end
+      end
+
+      it 'response should have facets' do
+        get :index, api_token: @token
+        @facets = JSON.parse(response.body)["facets"]
+        assert @facets["won"]["count"] == 3
+        assert @facets["lost"]["count"] == 2
+        assert @facets["open"]["count"] == 1
+      end
+
+      it 'response should have only won deals' do
+        get :index, api_token: @token, status_filter: "won"
+        assert JSON.parse(response.body)["items"].count == 3
+      end
+
+      it 'response should have only lost deals' do
+        get :index, api_token: @token, status_filter: "lost"
+        assert JSON.parse(response.body)["items"].count == 2
+      end
+
+      it 'response should have only open deals' do
+        get :index, api_token: @token, status_filter: "open"
+        assert JSON.parse(response.body)["items"].count == 1
+      end
+    end
   end
 
   describe "Show" do
