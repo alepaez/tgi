@@ -2,34 +2,26 @@
   <div class="responsive_title"><%= @title %></div>
 
   <form class="form-horizontal form-group">
+    <div class="status-radio">
+      <input data-model-checked="model.status" type="radio" name="status" value="open" id="open">
+      <label for="open">Em Aberto</label>
+      <input data-model-checked="model.status" type="radio" name="status" value="won" id="won">
+      <label for="won">Ganho</label>
+      <input data-model-checked="model.status" type="radio" name="status" value="lost" id="lost">
+      <label for="lost">Perdido</label>
+    </div>
     <input class="full-width" name="url" type="text" data-model-value="model.contact_id" style="display: none;"><br/>
     <a href="#" data-model-text="model.contact_ref" class="full-width select-contact button"></a>
-    <div class="status-radio">
-      <input data-model-checked="model.status" type="radio" name="status" value="open">Em Aberto</input>
-      <input data-model-checked="model.status" type="radio" name="status" value="won">Ganho</input>
-      <input data-model-checked="model.status" type="radio" name="status" value="lost">Perdido</input>
-    </div>
   </form>
 
   <div class="items">
     <div data-model-each-item="model.items | toArrayRemovingDestroyed" class="item">
-      <div class="padding">
-        <div class="auto-clear four-fields">
-          <div class="iugu-ui-form-wrapper" style="width:58%">
-            <input class="full-width" name="items.quantity" data-model-cid="item:cid" type="text" data-model-value="item.quantity" placeholder="Quantidade">
-          </div>
-          <div class="iugu-ui-form-wrapper" style="width:58%" data-model-cid="item:cid">
-            <input class="full-width" name="items.product_id" type="text" data-model-cid="item:cid" data-model-value="item.product_id" style="display: none;"><br/>
-            <a href="#" data-model-cid="item:cid" data-model-text="item.product_ref" class="full-width select-product button"></a>
-          </div>
-          <button class="remove-item full-width danger button ui-trash-button" data-model-cid="item:cid" style="width:84px">
-          <div class="icon" data-model-cid="item:cid"></div> 
-          <span data-model-cid="item:cid">
-            Remover
-          </span>
-          </button>
-        </div>
-      </div>
+      <input id="quantity" name="items.quantity" data-model-cid="item:cid" type="number" min="0" data-model-value="item.quantity" placeholder="0">
+      <input name="items.product_id" type="text" data-model-cid="item:cid" data-model-value="item.product_id" style="display: none;">
+      <a id="product" href="#" data-model-cid="item:cid" data-model-text="item.product_ref" class="full-width select-product button"></a>
+      <a id="remove" class="full-width remove-item button danger" data-model-cid="item:cid">
+        X
+      </a>
     </div>
     <div>
       <button class ="add-item button full-width">Adicionar Item</button>

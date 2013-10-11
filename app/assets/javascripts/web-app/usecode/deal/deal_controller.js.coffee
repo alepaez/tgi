@@ -152,7 +152,7 @@ class DealEdit extends DealController
       @configureDeal()
       @model.fetch(complete: -> that.load())
     else
-      @model.set 'contact_ref', 'Clique para escolher um Contato'
+      @model.set 'contact_ref', 'Escolha um Contato'
       @title = "Novo Negócio"
       @load()
   
@@ -190,7 +190,7 @@ class DealEdit extends DealController
   addItem: (evt) ->
     evt.preventDefault()
     item = @model.addToItems()
-    item.set 'product_ref', 'Clique para escolher um produto'
+    item.set 'product_ref', 'Escolha um produto'
 
   removeItem: (evt) ->
     evt.preventDefault()
@@ -202,7 +202,6 @@ class DealEdit extends DealController
     evt.preventDefault()
 
     cid = $(evt.target).attr 'cid'
-    window.app.targetEvt = evt
 
     that = @
 
@@ -219,6 +218,7 @@ class DealEdit extends DealController
 
       that.delegateEvents()
       that.load()
+      that.off "product-selection:pop"
 
   
   save: ->
