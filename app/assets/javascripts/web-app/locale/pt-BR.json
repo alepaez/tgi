@@ -6,5 +6,10 @@
     'open': "Em Aberto",
     'won': "Ganho",
     'lost': "Perdido"
+  },
+  'deals_status': {
+    'open': "Em Aberto",
+    'won': "Ganhos",
+    'lost': "Perdidos"
   }
 }

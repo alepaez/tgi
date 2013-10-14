@@ -6,4 +6,12 @@ class Product < ActiveRecord::Base
 
   attr_accessible :description, :price_cents
 
+  def to_json(args = {})
+    super({methods: ['price_localized']}.merge(args))
+  end
+
+  def price_localized
+    "R$ #{Money.new(price_cents, "BRL")}"
+  end
+
 end

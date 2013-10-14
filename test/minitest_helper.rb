@@ -31,7 +31,10 @@ class ActiveSupport::TestCase
     DatabaseCleaner.clean
   end
 
-  # Add more helper methods to be used by all tests here...
+  def prepare_default_env
+    @user = User.create(email: "test_user@example.org", password: "tester", password_confirmation: "tester")
+    @account = @user.accounts.first
+  end
 end
 
 class ActionController::TestCase

@@ -25,6 +25,8 @@ class DealIndex extends DealController
         contact: "Contato"
         created_at: "Criado em"
         updated_at: "Alterado em"
+        total_localized: "Valor"
+        status: "Situação"
       recordPresenter:
         contact: (deal) ->
           deal.get('contact_ref')
@@ -34,6 +36,8 @@ class DealIndex extends DealController
         updated_at: (deal) ->
           date = new Date(deal.get('updated_at').replace(/-/g,"/").replace(/[TZ]/g," "))
           "#{date.getDate()}/#{date.getMonth()}/#{date.getFullYear()} #{date.toLocaleTimeString()}"
+        status: (deal) ->
+          _t "deal_status.#{deal.get('status')}"
       parent: @
       identifier: 'deal-table'
 
@@ -53,7 +57,7 @@ class DealIndex extends DealController
       filterNames: [ "open", "won", "lost" ]
       fixedFilters: ["open", "won", "lost"]
       translateTerms: true
-      translationPrefix: 'deal_status'
+      translationPrefix: 'deals_status'
       baseURL: @options.baseURL
       parent: @
       identifier: 'deals-status-filter'

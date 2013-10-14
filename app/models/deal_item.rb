@@ -11,5 +11,17 @@ class DealItem < ActiveRecord::Base
   def product_ref
     product.description if product
   end
+
+  def total_cents
+    product.price_cents*quantity
+  end
+
+  def total_localized
+    "R$ #{Money.new(total_cents, "BRL")}"
+  end
+
+  def product_price_localized
+    "R$ #{Money.new(product.price_cents, "BRL")}"
+  end
   
 end

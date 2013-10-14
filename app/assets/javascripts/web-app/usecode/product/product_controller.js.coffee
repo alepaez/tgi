@@ -23,7 +23,7 @@ class ProductIndex extends ProductController
       baseURL: @options.baseURL
       fields:
         description: 'Descrição'
-        price_cents: 'Preço'
+        price_localized: 'Preço'
       parent: @
       identifier: 'product-table'
 

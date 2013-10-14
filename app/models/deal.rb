@@ -12,14 +12,22 @@ class Deal < ActiveRecord::Base
 
   def to_json(args = {})
     super(args.merge(
-      methods: ['contact_ref'],
+      methods: ['contact_ref', 'total_localized'],
       include: { items: {
-        methods: [ 'product_ref' ]
+        methods: [ 'product_ref', 'product_price_localized', 'total_localized' ]
       }
     }))
   end
 
   def contact_ref
     contact.name || contact.email if contact
+  end
+
+  def total_cents
+    items.sum(&:total_cents)
+  end
+
+  def total_localized
+    "R$ #{Money.new(total_cents, "BRL")}"
   end
 end

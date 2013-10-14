@@ -4,6 +4,8 @@
   <table>
     <tbody>
       <tr><th>Contato</th><td><%= @deal.get('contact_ref') %></td><tr>
+      <tr><th>Situação</th><td><%= _t "deal_status.#{@deal.get('status')}" %></td><tr>
+      <tr><th>Total</th><td><%= @deal.get('total_localized') %></td><tr>
     </tbody>
   </table>
 
@@ -14,6 +16,8 @@
       <tr>
         <th>Quantidade</th>
         <th>Produto</th>
+        <th>Preço</th>
+        <th>Total</th>
       </tr>
     </thead>
     <tbody>
@@ -22,6 +26,8 @@
       <tr>
         <td><%= items[key].get('quantity') %></td>
         <td><%= items[key].get('product_ref') %></td>
+        <td><%= items[key].get('product_price_localized') %></td>
+        <td><%= items[key].get('total_localized') %></td>
       </tr>
     <% end %>
     </tbody>
