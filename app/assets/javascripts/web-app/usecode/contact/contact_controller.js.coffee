@@ -181,6 +181,9 @@ class ContactEdit extends ContactController
 class ContactShow extends ContactController
   layout: 'default-horizontal-split-view'
 
+  events:
+    'click .deal': 'openDeal'
+
   initialize: ->
     super
     that = @
@@ -223,7 +226,9 @@ class ContactShow extends ContactController
 
   contactLoaded: ->
     @contact.getStrategicInfo(@load)
-    window.app.contact_deb = @contact
+
+  openDeal: (evt) ->
+    Backbone.history.navigate app.routes['deal#show'].replace(':id', $(evt.target).parent().data('id')), { trigger: true }
 
   render: ->
     super

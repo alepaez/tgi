@@ -22,7 +22,7 @@ class Api::V1::ContactController < Api::V1::BaseController
   def strategic_information
     @contact = @account.contacts.find(params[:id])
     render json: {
-      recent_deals: @contact.deals.order("created_at DESC").limit(5)
+      recent_deals: JSON.parse(@contact.deals.order("created_at DESC").limit(5).to_json(methods: ['total_localized']))
     }
   end
 

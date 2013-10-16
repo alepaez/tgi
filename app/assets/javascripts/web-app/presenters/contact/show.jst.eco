@@ -59,17 +59,19 @@
         <th>Data de criação</th>
         <th>Ultima modificação</th>
         <th>Situação</th>
+        <th>Total</th>
       </tr>
     </thead>
     <tbody>
       <% recent_deals = @contact.get('recent_deals') %>
       <% for recent_deal in recent_deals: %>
-        <tr>
+        <tr class="deal clickable" data-id=<%= recent_deal.id %>>
           <% created_at = new Date(recent_deal.created_at.replace(/-/g,"/").replace(/[TZ]/g," ")) %>
           <% updated_at = new Date(recent_deal.updated_at.replace(/-/g,"/").replace(/[TZ]/g," ")) %>
           <td><%= "#{created_at.getDate()}/#{created_at.getMonth()}/#{created_at.getFullYear()} #{created_at.toLocaleTimeString()}"  %></td>
           <td><%= "#{updated_at.getDate()}/#{updated_at.getMonth()}/#{updated_at.getFullYear()} #{updated_at.toLocaleTimeString()}"  %></td>
           <td><%= _t "deal_status.#{recent_deal.status}"  %></td>
+          <td><%= recent_deal.total_localized %></td>
         </tr>
       <% end %>
     </tbody>
