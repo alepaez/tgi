@@ -1,3 +1,4 @@
+#encoding: utf-8
 class Deal < ActiveRecord::Base
   include ActiveUUID::UUID
 
@@ -9,6 +10,8 @@ class Deal < ActiveRecord::Base
   attr_accessible :items_attributes, :product_id, :status
 
   acts_as_status :status, %w[open lost won]
+
+  validate :validate_changes
 
   def to_json(args = {})
     super(args.merge(
@@ -30,4 +33,15 @@ class Deal < ActiveRecord::Base
   def total_localized
     "R$ #{Money.new(total_cents, "BRL")}"
   end
+
+  private
+
+  def changed_from_won_or_lost
+    changed_attributes["status"] == "won" || changed_attributes["status"] == "lost"
+  end
+
+  def validate_changes
+    errors.add(:base, "Essa negociação já foi finalizada") if changed_from_won_or_lost
+  end
+
 end

@@ -39,5 +39,42 @@ class DealTest < ActiveSupport::TestCase
       assert @deal.total_localized == "R$ 2,00"
     end
   end
+
+  describe "validate_changes" do
+    before do
+      prepare_default_env
+      @contact = @account.contacts.create({
+        name: "Fulano de Tal",
+        email: "tester@example.org"
+      })
+
+      @product = @account.products.create({
+        description: "produto",
+        price_cents: 100
+      })
+
+      @deal = @contact.deals.create({
+        status: "open",
+        items_attributes: [
+          {
+            quantity: 2,
+            product_id: @product.id.to_param
+          }
+        ]
+      })
+    end
+
+    it 'should not be modified if its already won' do
+      @deal.update_attributes(status: "won")
+      @deal.status = "open"
+      assert !@deal.valid?
+    end
+
+    it 'should not be modified if its already lost' do
+      @deal.update_attributes(status: "lost")
+      @deal.status = "open"
+      assert !@deal.valid?
+    end
+  end
   
 end

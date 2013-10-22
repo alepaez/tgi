@@ -256,8 +256,7 @@ class DealShow extends DealController
       buttons:
         back:
           text: 'voltar'
-        edit:
-          text: 'editar'
+          class: 'ui-back-button'
       baseURL: @options.baseURL
       parent: @
       identifier: 'deal-show-button-toolbar'
@@ -276,6 +275,8 @@ class DealShow extends DealController
 
   render: ->
     super
+    window.app.deal = @deal
+    @toolbar.options.buttons.edit = { text: 'editar' } if @deal.get('status') == "open"
 
     @delegateChild
       '.split-view-top' : @dealView
