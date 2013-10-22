@@ -24,6 +24,8 @@ TgiCrm::Application.routes.draw do
       get  'deals/:id' => 'deal#show'
       put  'deals/:id' => 'deal#update'
       delete  'deals/:id' => 'deal#destroy'
+
+      get 'dashboard/recent_income' => 'dashboard#recent_income'
       
     end
   end
