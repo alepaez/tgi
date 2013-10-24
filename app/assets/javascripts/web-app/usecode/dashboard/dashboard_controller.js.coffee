@@ -4,16 +4,22 @@ class DashboardController extends ApplicationController
 
 class DashboardIndex extends DashboardController
   layout: 'dashboard/index'
-
+  
   initialize: ->
     super
-    @load()
+    that = @
+
+    @dashboard = new app.Dashboard
+
+    @enableLoader()
+    @dashboard.getRecentIncome(@load)
     @
+
+  context: ->
+    dashboard: @dashboard
 
   render: ->
     super
-
-    @
 
 DashboardRouter = Backbone.Router.extend
   

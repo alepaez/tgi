@@ -1,3 +1,24 @@
-<div class="dashboard">
-Aqui Ficarão as informações/graficos da empresa.
+<div class="dashboard big-padding">
+  <h3> Faturamento Recente </h3>
+  <div class="recent_income">
+    <div class="info">
+      <div class="income">
+        <h1>Semana Passada</h1>
+        <p><%= @dashboard.recent_income.last_week %></p>
+      </div>
+      <div class="growth_percent"> 
+        <h1>Crescimento</h1>
+        <p class="<%= if(@dashboard.recent_income.growth_percent > 0) then 'positive' else if(@dashboard.recent_income.growth_percent < 0) then 'negative' %>">
+          <%= @dashboard.recent_income.growth_percent %>%
+        </p>
+      </div>
+      <div class="income">
+        <h1>Semana Atual</h1>
+        <p><%= @dashboard.recent_income.this_week %></p>
+      </div>
+    </div>
+  </div>
+
+  <div id="last_12_weeks_income"></div>
+
 </div>
