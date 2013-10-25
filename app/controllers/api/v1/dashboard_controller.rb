@@ -8,6 +8,11 @@ class Api::V1::DashboardController < Api::V1::BaseController
   end
 
   def last_12_weeks_income_comparison
+    income_last_12_weeks = graphic_gen.income_last_12_weeks
+    income_last_12_weeks.each do |week,income|
+      income_last_12_weeks[week] = { "cents" => income.to_s, "localized" =>"R$#{Money.new(income, 'BRL')}" }
+    end
+    render json: income_last_12_weeks
   end
 
   private

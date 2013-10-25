@@ -15,3 +15,13 @@ class window.app.Dashboard extends window.app.BaseResource
       complete: ->
         cb() if cb
 
+  getLast12WeeksIncome: (cb) ->
+    @configureAjax()
+    that = @
+    app.ajax "#{@urlRoot}/last_12_weeks_income_comparison",
+      type: 'GET'
+      success: (data) ->
+        that.last_12_weeks_income = that.parse data
+      complete: ->
+        cb() if cb
+

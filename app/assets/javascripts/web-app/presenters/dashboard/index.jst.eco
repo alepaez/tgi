@@ -19,6 +19,8 @@
     </div>
   </div>
 
-  <div id="last_12_weeks_income"></div>
+  <h3> Faturamento ultimas 12 semanas </h3>
+
+  <div id="last_12_weeks_income" style="height:200px"></div>
 
 </div>
