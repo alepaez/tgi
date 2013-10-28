@@ -3,7 +3,7 @@
 
   <form class="form-horizontal form-group">
     <input class="full-width" name="url" type="text" data-model-value="model.description" placeholder="Descrição"><br/>
-    <input class="full-width" name="url" type="integer" data-model-value="model.price_cents" placeholder="Preço"><br/>
+    <input class="full-width" id="price-field" name="url" type="integer" data-model-value="model.price_cents" placeholder="Preço"><br/>
   </form>
 
 </div>

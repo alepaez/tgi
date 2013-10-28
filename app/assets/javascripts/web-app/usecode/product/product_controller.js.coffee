@@ -125,16 +125,13 @@ class ProductEdit extends ProductController
     @on( 'product-edit-button-toolbar:back:click', @redirectBack, @ )
     @on( 'product-edit-button-toolbar:save_product:click', @save, @ )
 
-    @enableLoader()
-    @render()
-
     if @options.id
       @title = "Editar Contato"
       @configureProduct()
       @model.fetch(complete: -> that.load())
     else
       @title = "Novo Contato"
-      @load
+      @load()
   
   render: ->
     super
@@ -145,12 +142,15 @@ class ProductEdit extends ProductController
       '.split-view-top'    : @formView
       '.split-view-bottom' : @toolbar
 
+    @$("#price-field").maskMoney({symbol:'R$ ', thousands:'.', decimal:',', symbolStay: true})
+    @$("#price-field").maskMoney('mask')
+
   configureProduct: ->
     @model.set 'id', @options.id
     @model.on 'fetch', @enableLoader, @
   
   save: ->
-    window.app.model = @model
+    @model.attributes.price_cents = @$("#price-field").val().replace(/[A-Za-z$-,. ]/g, "")
     @model.save null,
       context: @
 
