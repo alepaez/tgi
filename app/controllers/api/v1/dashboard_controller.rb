@@ -15,6 +15,10 @@ class Api::V1::DashboardController < Api::V1::BaseController
     render json: income_last_12_weeks
   end
 
+  def top_products_deals
+    render json: { won: graphic_gen.top_products_won_deals, lost: graphic_gen.top_products_lost_deals }
+  end
+
   private
 
   def graphic_gen

@@ -1,5 +1,5 @@
 <div class="dashboard big-padding">
-  <h3> Faturamento Recente </h3>
+  <h3> Negócios ganhos recentemente </h3>
   <div class="recent_income">
     <div class="info">
       <div class="income">
@@ -19,8 +19,22 @@
     </div>
   </div>
 
-  <h3> Faturamento ultimas 12 semanas </h3>
+  <h3> Negócios ganhos nas ultimas 12 semanas </h3>
 
   <div id="last_12_weeks_income" style="height:200px"></div>
+
+  <h3> Produtos mais negociados </h3>
+
+  <h4> Negócios Ganhos </h4>
+
+  <div class="wrapper">
+    <div id="top_products_won_deals" style="height:500px"></div>
+  </div>
+
+  <h4> Negócios Perdidos </h4>
+
+  <div class="wrapper">
+    <div id="top_products_lost_deals" style="height:500px"></div>
+  </div>
 
 </div>

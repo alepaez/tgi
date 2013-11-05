@@ -126,11 +126,11 @@ class ProductEdit extends ProductController
     @on( 'product-edit-button-toolbar:save_product:click', @save, @ )
 
     if @options.id
-      @title = "Editar Contato"
+      @title = "Editar Produto #{@options.id.substr(-8)}"
       @configureProduct()
       @model.fetch(complete: -> that.load())
     else
-      @title = "Novo Contato"
+      @title = "Novo Produto"
       @load()
   
   render: ->

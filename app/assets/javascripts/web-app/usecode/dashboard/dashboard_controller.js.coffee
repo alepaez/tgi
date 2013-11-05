@@ -15,6 +15,7 @@ class DashboardIndex extends DashboardController
     @loadCount = 0
     @dashboard.getRecentIncome(@dataLoaded)
     @dashboard.getLast12WeeksIncome(@dataLoaded)
+    @dashboard.getTopProductsDeals(@dataLoaded)
     @
 
   context: ->
@@ -22,7 +23,7 @@ class DashboardIndex extends DashboardController
   
   dataLoaded: ->
     @loadCount++
-    @load() if @loadCount >= 2
+    @load() if @loadCount >= 3
 
   render: ->
     super
@@ -68,6 +69,35 @@ class DashboardIndex extends DashboardController
           fillColor: '#95C535'
 
     $.plot '#last_12_weeks_income', [values], options
+
+    options =
+      legend:
+        show: false
+      series:
+        pie:
+          show: true
+          stroke:
+            color: '#F7F7F7'
+          label:
+            show: true
+            radius: 15/16
+            formatter: (label, series) ->
+              "<div style='font-size:small;text-align:center;padding: 5px;color: white'>#{label}<br/>#{Math.round(series.percent)}%</div>"
+            background:
+              opacity: 0.5
+              color: '#000'
+
+    values = []
+    for key in _.keys(@dashboard.top_products_deals.won)
+      values.push {label: key, data: @dashboard.top_products_deals.won[key] }
+
+    $.plot "#top_products_won_deals", values, options
+
+    values = []
+    for key in _.keys(@dashboard.top_products_deals.lost)
+      values.push {label: key, data: @dashboard.top_products_deals.lost[key] }
+
+    $.plot "#top_products_lost_deals", values, options
 
 DashboardRouter = Backbone.Router.extend
   

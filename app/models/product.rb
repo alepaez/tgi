@@ -2,6 +2,7 @@ class Product < ActiveRecord::Base
   include ActiveUUID::UUID
 
   belongs_to :account
+  has_many :deal_items
   validates :description, :price_cents, presence: true
 
   attr_accessible :description, :price_cents

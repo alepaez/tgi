@@ -27,6 +27,7 @@ TgiCrm::Application.routes.draw do
 
       get 'dashboard/recent_income' => 'dashboard#recent_income'
       get 'dashboard/last_12_weeks_income_comparison' => 'dashboard#last_12_weeks_income_comparison'
+      get 'dashboard/top_products_deals' => 'dashboard#top_products_deals'
       
     end
   end

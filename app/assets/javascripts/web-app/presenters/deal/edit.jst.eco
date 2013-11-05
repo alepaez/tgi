@@ -19,7 +19,7 @@
       <input id="quantity" name="items.quantity" data-model-cid="item:cid" type="number" min="0" data-model-value="item.quantity" placeholder="0">
       <input name="items.product_id" type="text" data-model-cid="item:cid" data-model-value="item.product_id" style="display: none;">
       <a id="product" href="#" data-model-cid="item:cid" data-model-text="item.product_ref" class="full-width select-product button"></a>
-      <a id="remove" class="full-width remove-item button danger" data-model-cid="item:cid">
+      <a id="remove" class="full-width remove-item button danger ui-trash-button" data-model-cid="item:cid">
         X
       </a>
     </div>

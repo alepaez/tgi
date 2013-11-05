@@ -25,3 +25,12 @@ class window.app.Dashboard extends window.app.BaseResource
       complete: ->
         cb() if cb
 
+  getTopProductsDeals: (cb) ->
+    @configureAjax()
+    that = @
+    app.ajax "#{@urlRoot}/top_products_deals",
+      type: 'GET'
+      success: (data) ->
+        that.top_products_deals = that.parse data
+      complete: ->
+        cb() if cb

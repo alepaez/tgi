@@ -5,7 +5,7 @@
     <div class="nav group vertical_stacking">
       
       <div>
-        <a href="#" class="button tal large full-width" data-action="dashboard"><div class="icon-home"></div>Dashboard</a>
+        <a href="#" class="button tal large full-width" data-action="dashboard"><div class="icon-home"></div>Informações</a>
       </div>
 
       <div>
