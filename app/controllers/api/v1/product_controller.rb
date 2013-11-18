@@ -12,6 +12,7 @@ class Api::V1::ProductController < Api::V1::BaseController
     @result = @result.where("description like ?", "%#{params[:query]}%") unless params[:query].blank?
     @total = @result.count
     @result = @result.page((params[:start].to_i/params[:limit].to_i) + 1).per(params[:limit]) unless params[:start].blank? or params[:limit].blank? or params[:limit].to_i == 0
+    @result = @result.order("description ASC")
     render json: { items: JSON.parse(@result.to_json(methods: ['price_localized'])), totalItems: @total }
   end
 
